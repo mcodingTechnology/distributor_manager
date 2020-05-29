@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.returned.dao.OrderReturnProductsMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.returned.entity.OrderReturnProducts" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_return_no" property="orderReturnNo" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_img" property="productImg" jdbcType="VARCHAR" />
+    <result column="product_unit" property="productUnit" jdbcType="VARCHAR" />
+    <result column="product_spec" property="productSpec" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="validity_period" property="validityPeriod" jdbcType="TIMESTAMP" />
+    <result column="production_date" property="productionDate" jdbcType="TIMESTAMP" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
+    <result column="total_nums" property="totalNums" jdbcType="INTEGER" />
+    <result column="return_price" property="returnPrice" jdbcType="DECIMAL" />
+    <result column="return_amount" property="returnAmount" jdbcType="DECIMAL" />
+    <result column="return_total_amount" property="returnTotalAmount" jdbcType="DECIMAL" />
+    <result column="order_price" property="orderPrice" jdbcType="DECIMAL" />
+    <result column="order_amount" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="order_total_amount" property="orderTotalAmount" jdbcType="DECIMAL" />
+    <result column="return_reason" property="returnReason" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="ext5" property="ext5" jdbcType="VARCHAR" />
+    <result column="ext6" property="ext6" jdbcType="VARCHAR" />
+    <result column="ext7" property="ext7" jdbcType="VARCHAR" />
+    <result column="ext8" property="ext8" jdbcType="VARCHAR" />
+    <result column="ext9" property="ext9" jdbcType="VARCHAR" />
+    <result column="ext10" property="ext10" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_return_no, category_id, category_name, product_id, product_code, product_name, 
+    product_img, product_unit, product_spec, area, order_time, validity_period, production_date, 
+    nums, total_nums, return_price, return_amount, return_total_amount, order_price, 
+    order_amount, order_total_amount, return_reason, ext1, ext2, ext3, ext4, ext5, ext6, 
+    ext7, ext8, ext9, ext10, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.returned.entity.OrderReturnProductsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_return_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_return_products
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_return_products
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteObjByOrderReturnNo" parameterType="java.lang.String" >
+    delete from t_order_return_products
+    where order_return_no = #{orderReturnNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.returned.entity.OrderReturnProductsExample" >
+    delete from t_order_return_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.returned.entity.OrderReturnProducts" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_return_products (order_return_no, category_id, category_name, 
+      product_id, product_code, product_name, 
+      product_img, product_unit, product_spec, 
+      area, order_time, validity_period, 
+      production_date, nums, total_nums, 
+      return_price, return_amount, return_total_amount, 
+      order_price, order_amount, order_total_amount, 
+      return_reason, ext1, ext2, 
+      ext3, ext4, ext5, ext6, 
+      ext7, ext8, ext9, ext10, 
+      create_time, creater, update_time, 
+      updater)
+    values (#{orderReturnNo,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productImg,jdbcType=VARCHAR}, #{productUnit,jdbcType=VARCHAR}, #{productSpec,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{validityPeriod,jdbcType=TIMESTAMP}, 
+      #{productionDate,jdbcType=TIMESTAMP}, #{nums,jdbcType=INTEGER}, #{totalNums,jdbcType=INTEGER}, 
+      #{returnPrice,jdbcType=DECIMAL}, #{returnAmount,jdbcType=DECIMAL}, #{returnTotalAmount,jdbcType=DECIMAL}, 
+      #{orderPrice,jdbcType=DECIMAL}, #{orderAmount,jdbcType=DECIMAL}, #{orderTotalAmount,jdbcType=DECIMAL}, 
+      #{returnReason,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, 
+      #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, #{ext6,jdbcType=VARCHAR}, 
+      #{ext7,jdbcType=VARCHAR}, #{ext8,jdbcType=VARCHAR}, #{ext9,jdbcType=VARCHAR}, #{ext10,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.returned.entity.OrderReturnProducts" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_return_products
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderReturnNo != null" >
+        order_return_no,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productImg != null" >
+        product_img,
+      </if>
+      <if test="productUnit != null" >
+        product_unit,
+      </if>
+      <if test="productSpec != null" >
+        product_spec,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="validityPeriod != null" >
+        validity_period,
+      </if>
+      <if test="productionDate != null" >
+        production_date,
+      </if>
+      <if test="nums != null" >
+        nums,
+      </if>
+      <if test="totalNums != null" >
+        total_nums,
+      </if>
+      <if test="returnPrice != null" >
+        return_price,
+      </if>
+      <if test="returnAmount != null" >
+        return_amount,
+      </if>
+      <if test="returnTotalAmount != null" >
+        return_total_amount,
+      </if>
+      <if test="orderPrice != null" >
+        order_price,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="orderTotalAmount != null" >
+        order_total_amount,
+      </if>
+      <if test="returnReason != null" >
+        return_reason,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="ext5 != null" >
+        ext5,
+      </if>
+      <if test="ext6 != null" >
+        ext6,
+      </if>
+      <if test="ext7 != null" >
+        ext7,
+      </if>
+      <if test="ext8 != null" >
+        ext8,
+      </if>
+      <if test="ext9 != null" >
+        ext9,
+      </if>
+      <if test="ext10 != null" >
+        ext10,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderReturnNo != null" >
+        #{orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productImg != null" >
+        #{productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnit != null" >
+        #{productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="productSpec != null" >
+        #{productSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityPeriod != null" >
+        #{validityPeriod,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productionDate != null" >
+        #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nums != null" >
+        #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="totalNums != null" >
+        #{totalNums,jdbcType=INTEGER},
+      </if>
+      <if test="returnPrice != null" >
+        #{returnPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="returnAmount != null" >
+        #{returnAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnTotalAmount != null" >
+        #{returnTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPrice != null" >
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmount != null" >
+        #{orderTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnReason != null" >
+        #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.returned.entity.OrderReturnProductsExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_return_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order_return_products
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderReturnNo != null" >
+        order_return_no = #{record.orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryName != null" >
+        category_name = #{record.categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null" >
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productImg != null" >
+        product_img = #{record.productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productUnit != null" >
+        product_unit = #{record.productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productSpec != null" >
+        product_spec = #{record.productSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.validityPeriod != null" >
+        validity_period = #{record.validityPeriod,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.productionDate != null" >
+        production_date = #{record.productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nums != null" >
+        nums = #{record.nums,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalNums != null" >
+        total_nums = #{record.totalNums,jdbcType=INTEGER},
+      </if>
+      <if test="record.returnPrice != null" >
+        return_price = #{record.returnPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.returnAmount != null" >
+        return_amount = #{record.returnAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.returnTotalAmount != null" >
+        return_total_amount = #{record.returnTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderPrice != null" >
+        order_price = #{record.orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderAmount != null" >
+        order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTotalAmount != null" >
+        order_total_amount = #{record.orderTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.returnReason != null" >
+        return_reason = #{record.returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null" >
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext6 != null" >
+        ext6 = #{record.ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext7 != null" >
+        ext7 = #{record.ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext8 != null" >
+        ext8 = #{record.ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext9 != null" >
+        ext9 = #{record.ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext10 != null" >
+        ext10 = #{record.ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order_return_products
+    set id = #{record.id,jdbcType=INTEGER},
+      order_return_no = #{record.orderReturnNo,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      category_name = #{record.categoryName,jdbcType=VARCHAR},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_img = #{record.productImg,jdbcType=VARCHAR},
+      product_unit = #{record.productUnit,jdbcType=VARCHAR},
+      product_spec = #{record.productSpec,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      validity_period = #{record.validityPeriod,jdbcType=TIMESTAMP},
+      production_date = #{record.productionDate,jdbcType=TIMESTAMP},
+      nums = #{record.nums,jdbcType=INTEGER},
+      total_nums = #{record.totalNums,jdbcType=INTEGER},
+      return_price = #{record.returnPrice,jdbcType=DECIMAL},
+      return_amount = #{record.returnAmount,jdbcType=DECIMAL},
+      return_total_amount = #{record.returnTotalAmount,jdbcType=DECIMAL},
+      order_price = #{record.orderPrice,jdbcType=DECIMAL},
+      order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      order_total_amount = #{record.orderTotalAmount,jdbcType=DECIMAL},
+      return_reason = #{record.returnReason,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      ext6 = #{record.ext6,jdbcType=VARCHAR},
+      ext7 = #{record.ext7,jdbcType=VARCHAR},
+      ext8 = #{record.ext8,jdbcType=VARCHAR},
+      ext9 = #{record.ext9,jdbcType=VARCHAR},
+      ext10 = #{record.ext10,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.returned.entity.OrderReturnProducts" >
+    update t_order_return_products
+    <set >
+      <if test="orderReturnNo != null" >
+        order_return_no = #{orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productImg != null" >
+        product_img = #{productImg,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnit != null" >
+        product_unit = #{productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="productSpec != null" >
+        product_spec = #{productSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validityPeriod != null" >
+        validity_period = #{validityPeriod,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productionDate != null" >
+        production_date = #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nums != null" >
+        nums = #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="totalNums != null" >
+        total_nums = #{totalNums,jdbcType=INTEGER},
+      </if>
+      <if test="returnPrice != null" >
+        return_price = #{returnPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="returnAmount != null" >
+        return_amount = #{returnAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnTotalAmount != null" >
+        return_total_amount = #{returnTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderPrice != null" >
+        order_price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmount != null" >
+        order_total_amount = #{orderTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="returnReason != null" >
+        return_reason = #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6 = #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7 = #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8 = #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9 = #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10 = #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where 1=1
+      <if test="id != null" >
+    	and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="orderReturnNo != null" >
+    	and  order_return_no = #{orderReturnNo,jdbcType=VARCHAR}
+      </if>
+      <if test="categoryId != null" >
+        and category_id = #{categoryId,jdbcType=INTEGER}
+      </if>
+      <if test="categoryName != null" >
+        and category_name = #{categoryName,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null" >
+        and product_id = #{productId,jdbcType=INTEGER}
+      </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.returned.entity.OrderReturnProducts" >
+    update t_order_return_products
+    set order_return_no = #{orderReturnNo,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_img = #{productImg,jdbcType=VARCHAR},
+      product_unit = #{productUnit,jdbcType=VARCHAR},
+      product_spec = #{productSpec,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      validity_period = #{validityPeriod,jdbcType=TIMESTAMP},
+      production_date = #{productionDate,jdbcType=TIMESTAMP},
+      nums = #{nums,jdbcType=INTEGER},
+      total_nums = #{totalNums,jdbcType=INTEGER},
+      return_price = #{returnPrice,jdbcType=DECIMAL},
+      return_amount = #{returnAmount,jdbcType=DECIMAL},
+      return_total_amount = #{returnTotalAmount,jdbcType=DECIMAL},
+      order_price = #{orderPrice,jdbcType=DECIMAL},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      order_total_amount = #{orderTotalAmount,jdbcType=DECIMAL},
+      return_reason = #{returnReason,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      ext6 = #{ext6,jdbcType=VARCHAR},
+      ext7 = #{ext7,jdbcType=VARCHAR},
+      ext8 = #{ext8,jdbcType=VARCHAR},
+      ext9 = #{ext9,jdbcType=VARCHAR},
+      ext10 = #{ext10,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.returned.entity.OrderReturnProductsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_return_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

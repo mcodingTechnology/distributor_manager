@@ -1,0 +1,11 @@
+登录
+http://localhost:8080/distributor_module/loginForSpringSecurity?username=admin&password=123456
+
+操作库存
+http://localhost:8080/distributor_module/stock/service/optStock
+{
+	"productId": "31",
+	"warehouseId": "",
+	"amount": 100,
+	"amountType": "plus"
+}

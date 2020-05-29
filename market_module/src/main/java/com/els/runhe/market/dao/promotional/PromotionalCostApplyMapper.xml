@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.market.dao.promotional.PromotionalCostApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.market.entity.promotional.PromotionalCostApply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="promotional_cost_no" property="promotionalCostNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_manager" property="areaManager" jdbcType="VARCHAR" />
+    <result column="agents" property="agents" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="cost_type" property="costType" jdbcType="VARCHAR" />
+    <result column="chain_name" property="chainName" jdbcType="VARCHAR" />
+    <result column="store_nums" property="storeNums" jdbcType="INTEGER" />
+    <result column="join_store_nums" property="joinStoreNums" jdbcType="INTEGER" />
+    <result column="join_rate" property="joinRate" jdbcType="INTEGER" />
+    <result column="first_compete_goods" property="firstCompeteGoods" jdbcType="VARCHAR" />
+    <result column="category_rank" property="categoryRank" jdbcType="VARCHAR" />
+    <result column="sales" property="sales" jdbcType="DECIMAL" />
+    <result column="plan_start_time" property="planStartTime" jdbcType="TIMESTAMP" />
+    <result column="plan_end_time" property="planEndTime" jdbcType="TIMESTAMP" />
+    <result column="plan_days" property="planDays" jdbcType="INTEGER" />
+    <result column="actual_start_time" property="actualStartTime" jdbcType="TIMESTAMP" />
+    <result column="actual_end_time" property="actualEndTime" jdbcType="TIMESTAMP" />
+    <result column="actual_days" property="actualDays" jdbcType="INTEGER" />
+    <result column="plan_sale_target" property="planSaleTarget" jdbcType="DECIMAL" />
+    <result column="plan_activity_cost" property="planActivityCost" jdbcType="DECIMAL" />
+    <result column="plan_activity_proport" property="planActivityProport" jdbcType="VARCHAR" />
+    <result column="actual_sale_target" property="actualSaleTarget" jdbcType="DECIMAL" />
+    <result column="actual_activity_cost" property="actualActivityCost" jdbcType="DECIMAL" />
+    <result column="actual_activity_proport" property="actualActivityProport" jdbcType="VARCHAR" />
+    <result column="target_complete_rate" property="targetCompleteRate" jdbcType="DECIMAL" />
+    <result column="cost_usage" property="costUsage" jdbcType="DECIMAL" />
+    <result column="atta_id" property="attaId" jdbcType="VARCHAR" />
+    <result column="atta_name" property="attaName" jdbcType="VARCHAR" />
+    <result column="atta_url" property="attaUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, promotional_cost_no, user_id, user_name, status, approval_status, district, province, 
+    city, area, area_manager, agents, contact, cost_type, chain_name, store_nums, join_store_nums, 
+    join_rate, first_compete_goods, category_rank, sales, plan_start_time, plan_end_time, 
+    plan_days, actual_start_time, actual_end_time, actual_days, plan_sale_target, plan_activity_cost, 
+    plan_activity_proport, actual_sale_target, actual_activity_cost, actual_activity_proport, target_complete_rate, cost_usage, 
+    atta_id, atta_name, atta_url, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPromotionalCostNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_apply
+    where promotional_cost_no = #{promotionalCostNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update t_promotional_cost_apply set status = '5'
+	where id = #{id,jdbcType=INTEGER} 
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApplyExample" >
+    delete from t_promotional_cost_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_promotional_cost_apply (promotional_cost_no, user_id, user_name, 
+      status, approval_status, district, 
+      province, city, area, 
+      area_manager, agents, contact, cost_type,
+      chain_name, store_nums, join_store_nums, 
+      join_rate, first_compete_goods, category_rank, 
+      sales, plan_start_time, plan_end_time, 
+      plan_days, actual_start_time, actual_end_time, 
+      actual_days, plan_sale_target, plan_activity_cost, 
+      plan_activity_proport, actual_sale_target, 
+      actual_activity_cost, actual_activity_proport, 
+      target_complete_rate, cost_usage, 
+      atta_id, atta_name, atta_url, 
+      create_time, creater, update_time, 
+      updater)
+    values (#{promotionalCostNo,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{approvalStatus,jdbcType=INTEGER}, #{district,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{areaManager,jdbcType=VARCHAR}, #{agents,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{costType,jdbcType=VARCHAR}, 
+      #{chainName,jdbcType=VARCHAR}, #{storeNums,jdbcType=INTEGER}, #{joinStoreNums,jdbcType=INTEGER}, 
+      #{joinRate,jdbcType=INTEGER}, #{firstCompeteGoods,jdbcType=VARCHAR}, #{categoryRank,jdbcType=VARCHAR}, 
+      #{sales,jdbcType=DECIMAL}, #{planStartTime,jdbcType=TIMESTAMP}, #{planEndTime,jdbcType=TIMESTAMP}, 
+      #{planDays,jdbcType=INTEGER}, #{actualStartTime,jdbcType=TIMESTAMP}, #{actualEndTime,jdbcType=TIMESTAMP}, 
+      #{actualDays,jdbcType=INTEGER}, #{planSaleTarget,jdbcType=DECIMAL}, #{planActivityCost,jdbcType=DECIMAL}, 
+      #{planActivityProport,jdbcType=VARCHAR}, #{actualSaleTarget,jdbcType=DECIMAL}, 
+      #{actualActivityCost,jdbcType=DECIMAL}, #{actualActivityProport,jdbcType=VARCHAR}, 
+      #{targetCompleteRate,jdbcType=DECIMAL}, #{costUsage,jdbcType=DECIMAL}, 
+      #{attaId,jdbcType=VARCHAR}, #{attaName,jdbcType=VARCHAR}, #{attaUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_promotional_cost_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="promotionalCostNo != null" >
+        promotional_cost_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaManager != null" >
+        area_manager,
+      </if>
+      <if test="agents != null" >
+        agents,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="costType != null" >
+        cost_type,
+      </if>
+      <if test="chainName != null" >
+        chain_name,
+      </if>
+      <if test="storeNums != null" >
+        store_nums,
+      </if>
+      <if test="joinStoreNums != null" >
+        join_store_nums,
+      </if>
+      <if test="joinRate != null" >
+        join_rate,
+      </if>
+      <if test="firstCompeteGoods != null" >
+        first_compete_goods,
+      </if>
+      <if test="categoryRank != null" >
+        category_rank,
+      </if>
+      <if test="sales != null" >
+        sales,
+      </if>
+      <if test="planStartTime != null" >
+        plan_start_time,
+      </if>
+      <if test="planEndTime != null" >
+        plan_end_time,
+      </if>
+      <if test="planDays != null" >
+        plan_days,
+      </if>
+      <if test="actualStartTime != null" >
+        actual_start_time,
+      </if>
+      <if test="actualEndTime != null" >
+        actual_end_time,
+      </if>
+      <if test="actualDays != null" >
+        actual_days,
+      </if>
+      <if test="planSaleTarget != null" >
+        plan_sale_target,
+      </if>
+      <if test="planActivityCost != null" >
+        plan_activity_cost,
+      </if>
+      <if test="planActivityProport != null" >
+        plan_activity_proport,
+      </if>
+      <if test="actualSaleTarget != null" >
+        actual_sale_target,
+      </if>
+      <if test="actualActivityCost != null" >
+        actual_activity_cost,
+      </if>
+      <if test="actualActivityProport != null" >
+        actual_activity_proport,
+      </if>
+      <if test="targetCompleteRate != null" >
+        target_complete_rate,
+      </if>
+      <if test="costUsage != null" >
+        cost_usage,
+      </if>
+      <if test="attaId != null" >
+        atta_id,
+      </if>
+      <if test="attaName != null" >
+        atta_name,
+      </if>
+      <if test="attaUrl != null" >
+        atta_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="promotionalCostNo != null" >
+        #{promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaManager != null" >
+        #{areaManager,jdbcType=VARCHAR},
+      </if>
+      <if test="agents != null" >
+        #{agents,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        #{costType,jdbcType=VARCHAR},
+      </if>
+      <if test="chainName != null" >
+        #{chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNums != null" >
+        #{storeNums,jdbcType=INTEGER},
+      </if>
+      <if test="joinStoreNums != null" >
+        #{joinStoreNums,jdbcType=INTEGER},
+      </if>
+      <if test="joinRate != null" >
+        #{joinRate,jdbcType=INTEGER},
+      </if>
+      <if test="firstCompeteGoods != null" >
+        #{firstCompeteGoods,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryRank != null" >
+        #{categoryRank,jdbcType=VARCHAR},
+      </if>
+      <if test="sales != null" >
+        #{sales,jdbcType=DECIMAL},
+      </if>
+      <if test="planStartTime != null" >
+        #{planStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planEndTime != null" >
+        #{planEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planDays != null" >
+        #{planDays,jdbcType=INTEGER},
+      </if>
+      <if test="actualStartTime != null" >
+        #{actualStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualEndTime != null" >
+        #{actualEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualDays != null" >
+        #{actualDays,jdbcType=INTEGER},
+      </if>
+      <if test="planSaleTarget != null" >
+        #{planSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="planActivityCost != null" >
+        #{planActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="planActivityProport != null" >
+        #{planActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSaleTarget != null" >
+        #{actualSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="actualActivityCost != null" >
+        #{actualActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="actualActivityProport != null" >
+        #{actualActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="targetCompleteRate != null" >
+        #{targetCompleteRate,jdbcType=DECIMAL},
+      </if>
+      <if test="costUsage != null" >
+        #{costUsage,jdbcType=DECIMAL},
+      </if>
+      <if test="attaId != null" >
+        #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApplyExample" resultType="java.lang.Integer" >
+    select count(*) from t_promotional_cost_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_promotional_cost_apply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.promotionalCostNo != null" >
+        promotional_cost_no = #{record.promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaManager != null" >
+        area_manager = #{record.areaManager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agents != null" >
+        agents = #{record.agents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null" >
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costType != null" >
+        cost_type = #{record.costType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chainName != null" >
+        chain_name = #{record.chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNums != null" >
+        store_nums = #{record.storeNums,jdbcType=INTEGER},
+      </if>
+      <if test="record.joinStoreNums != null" >
+        join_store_nums = #{record.joinStoreNums,jdbcType=INTEGER},
+      </if>
+      <if test="record.joinRate != null" >
+        join_rate = #{record.joinRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstCompeteGoods != null" >
+        first_compete_goods = #{record.firstCompeteGoods,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryRank != null" >
+        category_rank = #{record.categoryRank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sales != null" >
+        sales = #{record.sales,jdbcType=DECIMAL},
+      </if>
+      <if test="record.planStartTime != null" >
+        plan_start_time = #{record.planStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.planEndTime != null" >
+        plan_end_time = #{record.planEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.planDays != null" >
+        plan_days = #{record.planDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.actualStartTime != null" >
+        actual_start_time = #{record.actualStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actualEndTime != null" >
+        actual_end_time = #{record.actualEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actualDays != null" >
+        actual_days = #{record.actualDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.planSaleTarget != null" >
+        plan_sale_target = #{record.planSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.planActivityCost != null" >
+        plan_activity_cost = #{record.planActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.planActivityProport != null" >
+        plan_activity_proport = #{record.planActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualSaleTarget != null" >
+        actual_sale_target = #{record.actualSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actualActivityCost != null" >
+        actual_activity_cost = #{record.actualActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.actualActivityProport != null" >
+        actual_activity_proport = #{record.actualActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetCompleteRate != null" >
+        target_complete_rate = #{record.targetCompleteRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costUsage != null" >
+        cost_usage = #{record.costUsage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attaId != null" >
+        atta_id = #{record.attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaName != null" >
+        atta_name = #{record.attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaUrl != null" >
+        atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_promotional_cost_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      promotional_cost_no = #{record.promotionalCostNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      district = #{record.district,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      area_manager = #{record.areaManager,jdbcType=VARCHAR},
+      agents = #{record.agents,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      cost_type = #{record.costType,jdbcType=VARCHAR},
+      chain_name = #{record.chainName,jdbcType=VARCHAR},
+      store_nums = #{record.storeNums,jdbcType=INTEGER},
+      join_store_nums = #{record.joinStoreNums,jdbcType=INTEGER},
+      join_rate = #{record.joinRate,jdbcType=INTEGER},
+      first_compete_goods = #{record.firstCompeteGoods,jdbcType=VARCHAR},
+      category_rank = #{record.categoryRank,jdbcType=VARCHAR},
+      sales = #{record.sales,jdbcType=DECIMAL},
+      plan_start_time = #{record.planStartTime,jdbcType=TIMESTAMP},
+      plan_end_time = #{record.planEndTime,jdbcType=TIMESTAMP},
+      plan_days = #{record.planDays,jdbcType=INTEGER},
+      actual_start_time = #{record.actualStartTime,jdbcType=TIMESTAMP},
+      actual_end_time = #{record.actualEndTime,jdbcType=TIMESTAMP},
+      actual_days = #{record.actualDays,jdbcType=INTEGER},
+      plan_sale_target = #{record.planSaleTarget,jdbcType=DECIMAL},
+      plan_activity_cost = #{record.planActivityCost,jdbcType=DECIMAL},
+      plan_activity_proport = #{record.planActivityProport,jdbcType=VARCHAR},
+      actual_sale_target = #{record.actualSaleTarget,jdbcType=DECIMAL},
+      actual_activity_cost = #{record.actualActivityCost,jdbcType=DECIMAL},
+      actual_activity_proport = #{record.actualActivityProport,jdbcType=VARCHAR},
+      target_complete_rate = #{record.targetCompleteRate,jdbcType=DECIMAL},
+      cost_usage = #{record.costUsage,jdbcType=DECIMAL},
+      atta_id = #{record.attaId,jdbcType=VARCHAR},
+      atta_name = #{record.attaName,jdbcType=VARCHAR},
+      atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApply" >
+    update t_promotional_cost_apply
+    <set >
+      <if test="promotionalCostNo != null" >
+        promotional_cost_no = #{promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaManager != null" >
+        area_manager = #{areaManager,jdbcType=VARCHAR},
+      </if>
+      <if test="agents != null" >
+        agents = #{agents,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="costType != null" >
+        cost_type = #{costType,jdbcType=VARCHAR},
+      </if>
+      <if test="chainName != null" >
+        chain_name = #{chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNums != null" >
+        store_nums = #{storeNums,jdbcType=INTEGER},
+      </if>
+      <if test="joinStoreNums != null" >
+        join_store_nums = #{joinStoreNums,jdbcType=INTEGER},
+      </if>
+      <if test="joinRate != null" >
+        join_rate = #{joinRate,jdbcType=INTEGER},
+      </if>
+      <if test="firstCompeteGoods != null" >
+        first_compete_goods = #{firstCompeteGoods,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryRank != null" >
+        category_rank = #{categoryRank,jdbcType=VARCHAR},
+      </if>
+      <if test="sales != null" >
+        sales = #{sales,jdbcType=DECIMAL},
+      </if>
+      <if test="planStartTime != null" >
+        plan_start_time = #{planStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planEndTime != null" >
+        plan_end_time = #{planEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planDays != null" >
+        plan_days = #{planDays,jdbcType=INTEGER},
+      </if>
+      <if test="actualStartTime != null" >
+        actual_start_time = #{actualStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualEndTime != null" >
+        actual_end_time = #{actualEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualDays != null" >
+        actual_days = #{actualDays,jdbcType=INTEGER},
+      </if>
+      <if test="planSaleTarget != null" >
+        plan_sale_target = #{planSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="planActivityCost != null" >
+        plan_activity_cost = #{planActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="planActivityProport != null" >
+        plan_activity_proport = #{planActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="actualSaleTarget != null" >
+        actual_sale_target = #{actualSaleTarget,jdbcType=DECIMAL},
+      </if>
+      <if test="actualActivityCost != null" >
+        actual_activity_cost = #{actualActivityCost,jdbcType=DECIMAL},
+      </if>
+      <if test="actualActivityProport != null" >
+        actual_activity_proport = #{actualActivityProport,jdbcType=VARCHAR},
+      </if>
+      <if test="targetCompleteRate != null" >
+        target_complete_rate = #{targetCompleteRate,jdbcType=DECIMAL},
+      </if>
+      <if test="costUsage != null" >
+        cost_usage = #{costUsage,jdbcType=DECIMAL},
+      </if>
+      <if test="attaId != null" >
+        atta_id = #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        atta_name = #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        atta_url = #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApply" >
+    update t_promotional_cost_apply
+    set promotional_cost_no = #{promotionalCostNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      district = #{district,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      area_manager = #{areaManager,jdbcType=VARCHAR},
+      agents = #{agents,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      cost_type = #{costType,jdbcType=VARCHAR},
+      chain_name = #{chainName,jdbcType=VARCHAR},
+      store_nums = #{storeNums,jdbcType=INTEGER},
+      join_store_nums = #{joinStoreNums,jdbcType=INTEGER},
+      join_rate = #{joinRate,jdbcType=INTEGER},
+      first_compete_goods = #{firstCompeteGoods,jdbcType=VARCHAR},
+      category_rank = #{categoryRank,jdbcType=VARCHAR},
+      sales = #{sales,jdbcType=DECIMAL},
+      plan_start_time = #{planStartTime,jdbcType=TIMESTAMP},
+      plan_end_time = #{planEndTime,jdbcType=TIMESTAMP},
+      plan_days = #{planDays,jdbcType=INTEGER},
+      actual_start_time = #{actualStartTime,jdbcType=TIMESTAMP},
+      actual_end_time = #{actualEndTime,jdbcType=TIMESTAMP},
+      actual_days = #{actualDays,jdbcType=INTEGER},
+      plan_sale_target = #{planSaleTarget,jdbcType=DECIMAL},
+      plan_activity_cost = #{planActivityCost,jdbcType=DECIMAL},
+      plan_activity_proport = #{planActivityProport,jdbcType=VARCHAR},
+      actual_sale_target = #{actualSaleTarget,jdbcType=DECIMAL},
+      actual_activity_cost = #{actualActivityCost,jdbcType=DECIMAL},
+      actual_activity_proport = #{actualActivityProport,jdbcType=VARCHAR},
+      target_complete_rate = #{record.targetCompleteRate,jdbcType=DECIMAL},
+      cost_usage = #{record.costUsage,jdbcType=DECIMAL},
+      atta_id = #{attaId,jdbcType=VARCHAR},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_url = #{attaUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

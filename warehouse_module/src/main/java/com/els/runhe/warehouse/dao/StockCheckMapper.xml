@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.warehouse.dao.StockCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.warehouse.entity.StockCheck" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SRC" property="src" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="VARCHAR" />
+    <result column="WAREHOUSE_NAME" property="warehouseName" jdbcType="VARCHAR" />
+    <result column="CHECK_ORDER_NUM" property="checkOrderNum" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="TRAVELING_TIME" property="travelingTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="INTEGER" />
+    <result column="APPROVAL_STATUS" property="approvalStatus" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SRC, COMPANY_ID, COMPANY_NAME, USER_ID, WAREHOUSE_ID, WAREHOUSE_NAME, CHECK_ORDER_NUM, 
+    CHECK_TIME, TRAVELING_TIME, REMARK, CREATE_TIME, UPDATE_TIME, IS_ENABLE,APPROVAL_STATUS,TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.warehouse.entity.StockCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_stock_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock_check
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_stock_check
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.warehouse.entity.StockCheckExample" >
+    delete from t_stock_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.warehouse.entity.StockCheck" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_stock_check (ID, SRC, COMPANY_ID, COMPANY_NAME, 
+      USER_ID, WAREHOUSE_ID, WAREHOUSE_NAME, 
+      CHECK_ORDER_NUM, CHECK_TIME, TRAVELING_TIME, 
+      REMARK, CREATE_TIME, UPDATE_TIME, 
+      IS_ENABLE,APPROVAL_STATUS)
+    values (#{_uuid}, #{src,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{warehouseId,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, 
+      #{checkOrderNum,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, #{travelingTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isEnable,jdbcType=INTEGER},#{approvalStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.warehouse.entity.StockCheck" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_stock_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="src != null" >
+        SRC,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="warehouseId != null" >
+        WAREHOUSE_ID,
+      </if>
+      <if test="warehouseName != null" >
+        WAREHOUSE_NAME,
+      </if>
+      <if test="checkOrderNum != null" >
+        CHECK_ORDER_NUM,
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME,
+      </if>
+      <if test="travelingTime != null" >
+        TRAVELING_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE,
+      </if>
+      <if test="approvalStatus != null" >
+        APPROVAL_STATUS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{_uuid},
+      <if test="src != null" >
+        #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null" >
+        #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkOrderNum != null" >
+        #{checkOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelingTime != null" >
+        #{travelingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.warehouse.entity.StockCheckExample" resultType="java.lang.Integer" >
+    select count(*) from t_stock_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_stock_check
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.src != null" >
+        SRC = #{record.src,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null" >
+        COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseId != null" >
+        WAREHOUSE_ID = #{record.warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warehouseName != null" >
+        WAREHOUSE_NAME = #{record.warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkOrderNum != null" >
+        CHECK_ORDER_NUM = #{record.checkOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null" >
+        CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.travelingTime != null" >
+        TRAVELING_TIME = #{record.travelingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        IS_ENABLE = #{record.isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        APPROVAL_STATUS = #{approvalStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_stock_check
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SRC = #{record.src,jdbcType=VARCHAR},
+      COMPANY_ID = #{record.companyId,jdbcType=VARCHAR},
+      COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      WAREHOUSE_ID = #{record.warehouseId,jdbcType=VARCHAR},
+      WAREHOUSE_NAME = #{record.warehouseName,jdbcType=VARCHAR},
+      CHECK_ORDER_NUM = #{record.checkOrderNum,jdbcType=VARCHAR},
+      CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      TRAVELING_TIME = #{record.travelingTime,jdbcType=TIMESTAMP},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{record.isEnable,jdbcType=INTEGER},
+      APPROVAL_STATUS = #{approvalStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.warehouse.entity.StockCheck" >
+    update t_stock_check
+    <set >
+      <if test="src != null" >
+        SRC = #{src,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseId != null" >
+        WAREHOUSE_ID = #{warehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehouseName != null" >
+        WAREHOUSE_NAME = #{warehouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkOrderNum != null" >
+        CHECK_ORDER_NUM = #{checkOrderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="travelingTime != null" >
+        TRAVELING_TIME = #{travelingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        APPROVAL_STATUS = #{approvalStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.warehouse.entity.StockCheck" >
+    update t_stock_check
+    set SRC = #{src,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      WAREHOUSE_ID = #{warehouseId,jdbcType=VARCHAR},
+      WAREHOUSE_NAME = #{warehouseName,jdbcType=VARCHAR},
+      CHECK_ORDER_NUM = #{checkOrderNum,jdbcType=VARCHAR},
+      CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      TRAVELING_TIME = #{travelingTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{isEnable,jdbcType=INTEGER},
+      APPROVAL_STATUS = #{approvalStatus,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertBatch" parameterType="com.els.runhe.warehouse.entity.StockCheck" >
+    insert into t_stock_check (ID, SRC, COMPANY_ID, 
+      COMPANY_NAME, USER_ID, WAREHOUSE_ID, 
+      WAREHOUSE_NAME, CHECK_ORDER_NUM, 
+      CHECK_TIME, TRAVELING_TIME, 
+      REMARK, CREATE_TIME, UPDATE_TIME, 
+      IS_ENABLE,APPROVAL_STATUS) values 
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.id,jdbcType=VARCHAR}, #{item.src,jdbcType=VARCHAR}, #{item.companyId,jdbcType=VARCHAR}, 
+        #{item.companyName,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.warehouseId,jdbcType=VARCHAR}, 
+        #{item.warehouseName,jdbcType=VARCHAR}, #{item.checkOrderNum,jdbcType=VARCHAR}, 
+        #{item.checkTime,jdbcType=TIMESTAMP}, #{item.travelingTime,jdbcType=TIMESTAMP}, 
+        #{item.remark,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+        #{item.isEnable,jdbcType=INTEGER},#{item.approvalStatus,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.warehouse.entity.StockCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_stock_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

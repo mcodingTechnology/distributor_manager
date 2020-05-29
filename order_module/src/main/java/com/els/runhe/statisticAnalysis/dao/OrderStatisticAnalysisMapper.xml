@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.statisticAnalysis.dao.OrderStatisticAnalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="categoryName" property="categoryName" jdbcType="VARCHAR" />
+    <result column="addTime" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="productName" property="productName" jdbcType="VARCHAR" />
+    <result column="productId" property="productId" jdbcType="VARCHAR" />
+    <result column="productSpec" property="productSpec" jdbcType="VARCHAR" />
+    <result column="productSupplyPrice" property="productSupplyPrice" jdbcType="DECIMAL" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
+    <result column="productUnit" property="productUnit" jdbcType="VARCHAR" />
+    <result column="totalNums" property="totalNums" jdbcType="INTEGER" />
+    <result column="totalAmount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="amountTotal" property="amountTotal" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="deliveryCode" property="deliveryCode" jdbcType="VARCHAR" />
+    <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+    <result column="companyId" property="companyId" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="yesPay" property="yesPay" jdbcType="VARCHAR" />
+    <result column="deliveryTime" property="deliveryTime" jdbcType="VARCHAR" />
+    <result column="statusName" property="statusName" jdbcType="VARCHAR" />
+    <result column="areaName" property="areaName" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      	tos.id = top.order_id
+	AND top.company_id = tbc.id 
+	AND user.id = tos.user_id
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+        AND
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+      
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tos.id id,
+	tos.type type,
+	tos.order_no orderNo,
+	top.category_name categoryName,
+	tos.add_time addTime,
+	top.product_name productName,
+	top.product_spec productSpec,
+	top.product_supply_price productSupplyPrice,
+	top.nums nums,
+	top.amount_total amountTotal,
+	tos.remark remark,
+	tos.delivery_code deliveryCode,
+	top.company_name companyName,
+	(select tbr.region_name from t_base_region tbr where tbr.id = tbc.CITY) city,
+  	(select tbr.region_name from t_base_region tbr where tbr.id = tbc.PROVINCE) province
+  </sql>
+   <sql id="Base_Column_List1" >
+    tos.id id,
+	tos.order_no orderNo,
+	tos.add_time addTime,
+	tos.status status,
+	CASE tos.status 
+	WHEN 100 THEN '待提交'
+	WHEN 200 THEN '待支付'
+	WHEN 600 THEN '已取消'
+	WHEN 700 THEN '已支付'
+	ELSE ''
+	END statusName,
+	tbc.company_code companyId,
+	tbc.company_full_name companyName,
+	tbc.area area,
+	CASE tbc.area 
+	WHEN 1 THEN '华东地区'
+	WHEN 2 THEN '华南地区'
+	WHEN 3 THEN '华中地区'
+	WHEN 4 THEN '华北地区'
+	WHEN 5 THEN '西北地区'
+	WHEN 6 THEN '西南地区'
+	WHEN 7 THEN '东北地区'
+	WHEN 8 THEN '台港澳地区'
+	WHEN 9 THEN '浙闽地区'
+	ELSE ''
+	END areaName,
+	top.category_name categoryName,
+	top.product_name productName,
+	top.product_code productId,
+	top.nums nums,
+	top.product_unit productUnit,
+	top.product_supply_price productSupplyPrice,
+	top.amount_total amountTotal,
+	top.product_spec productSpec,
+	tos.delivery_code deliveryCode,
+	tos.remark remark,
+	(select tbr.region_name from t_base_region tbr where tbr.id = tbc.CITY) city,
+  	(select tbr.region_name from t_base_region tbr where tbr.id = tbc.PROVINCE) province,
+  	(SELECT ahv.TEXT_ from act_hi_varinst ahv,act_hi_taskinst aht,act_hi_procinst ahp 
+  	where aht.NAME_ = '运营人员审批' 
+  	AND ahv.NAME_ = 'approveDesc' 
+  	AND ahv.TASK_ID_ =  aht.ID_ 
+  	AND aht.PROC_INST_ID_ = ahp.PROC_INST_ID_ 
+  	AND ahp.BUSINESS_KEY_ = tos.order_no) taskText,
+  	user.NICK_NAME userName
+  </sql>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List1" />
+    from t_order tos,
+		t_order_product top,
+		t_base_company tbc,
+		t_base_user user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectAccountingByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order tos,
+		t_analysis_order_product top,
+		t_base_company tbc
+    <if test="_parameter != null" >
+      <include refid="Example_ProductRankingWhere_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <resultMap id="chartResultMap" type="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" >
+    <result column="categoryName" property="categoryName" jdbcType="VARCHAR" />
+    <result column="categoryId" property="categoryId" jdbcType="VARCHAR" />
+    <result column="stack" property="stack" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="provinceId" property="provinceId" jdbcType="VARCHAR" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="queryCategoryList" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  		SELECT
+			id categoryId,
+			category_name categoryName,
+			if(category_parent_id=#{categoryIdNotIn},'谷幽兰',category_name) stack
+		FROM
+			t_product_category tpc
+  </select>
+  <select id="queryProvinceList" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  		SELECT DISTINCT
+			tbrs.id provinceId,
+			tbrs.region_name province
+		FROM
+			t_order_product topss,
+			t_base_company tbcss,
+			t_base_region tbrs
+		WHERE
+			topss.company_id = tbcss.id
+		AND tbcss.PROVINCE = tbrs.id
+		AND tbcss.id in 
+		<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+	        #{id}
+	    </foreach>
+  </select>
+  <select id="queryChartDataList" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  		SELECT
+			IFNULL(topbc.count, '0') nums,
+			topbc.PROVINCE provinceId,
+			tbrss.region_name province,
+			tpcs.id categoryId,
+			tpcs.category_name categoryName
+		FROM
+			(
+				SELECT
+					id,
+					category_name
+				FROM
+					t_product_category tpc
+			) tpcs
+		LEFT JOIN (
+			SELECT
+				sum(top.nums) count,
+				top.category_id category_id,
+				tbc.PROVINCE PROVINCE
+			FROM
+				t_order tos,
+				t_order_product top,
+				t_base_company tbc
+			WHERE
+				tbc.id = top.company_id
+			AND top.order_id = tos.id
+			AND tbc.id in 
+				<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+			        #{id}
+			    </foreach>
+		    <if test="queryData == '1'.toString()">
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= date_sub(curdate(),INTERVAL WEEKDAY(curdate()) DAY)
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= date_sub(curdate(),INTERVAL WEEKDAY(curdate()) - 6 DAY)
+			</if>
+			<if test="queryData == '2'.toString()">
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= concat(date_format(LAST_DAY(now()),'%Y-%m-'),'01')
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= LAST_DAY(now())
+			</if>
+			<if test="queryData == '3'.toString()">
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM  CURDATE()),1) + interval QUARTER(CURDATE())*3-3 month),'%Y-%m-'),'01')
+				AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= LAST_DAY(MAKEDATE(EXTRACT(YEAR  FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-1 month)
+			</if>
+			AND tbc.PROVINCE IN (
+				SELECT DISTINCT
+					tbcss.PROVINCE
+				FROM
+					t_order_product topss,
+					t_base_company tbcss,
+					t_base_region tbrs,
+					t_order tos
+				WHERE
+					topss.company_id = tbcss.id
+				AND tbcss.PROVINCE = tbrs.id 
+				AND tos.id = topss.order_id
+				<if test="queryData == '1'.toString()">
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= date_sub(curdate(),INTERVAL WEEKDAY(curdate()) DAY)
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= date_sub(curdate(),INTERVAL WEEKDAY(curdate()) - 6 DAY)
+				</if>
+				<if test="queryData == '2'.toString()">
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= concat(date_format(LAST_DAY(now()),'%Y-%m-'),'01')
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= LAST_DAY(now())
+				</if>
+				<if test="queryData == '3'.toString()">
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') >= concat(date_format(LAST_DAY(MAKEDATE(EXTRACT(YEAR FROM  CURDATE()),1) + interval QUARTER(CURDATE())*3-3 month),'%Y-%m-'),'01')
+					AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= LAST_DAY(MAKEDATE(EXTRACT(YEAR  FROM CURDATE()),1) + interval QUARTER(CURDATE())*3-1 month)
+				</if>
+			)
+			GROUP BY
+				top.category_id,
+				tbc.PROVINCE
+		) topbc ON topbc.category_id = tpcs.id
+		LEFT JOIN t_base_region tbrss ON tbrss.id = topbc.PROVINCE
+  </select>
+  <sql id="Base_DealerRankingColumn_List">
+	IFNULL(SUM(top.nums), '0') totalNums,
+	IFNULL(SUM(top.amount_total), '0') totalAmount,
+	tbc.id companyId,
+	tbc.COMPANY_FULL_NAME companyName
+  </sql>
+  <sql id="Example_DealerRankingWhere_Clause">
+  	<where>
+  		tos.id = top.order_id
+	AND top.company_id = tbc.id 
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+        and
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <select id="findDealerRankingByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_DealerRankingColumn_List" />
+    FROM
+		t_base_company tbc
+	LEFT JOIN (
+		SELECT
+			top.nums,
+			top.amount_total,
+			top.company_id
+		FROM
+			t_order_product top,
+			t_order tos,
+			t_base_company tbc
+		<if test="_parameter != null" >
+	      <include refid="Example_DealerRankingWhere_Clause" />
+	    </if>
+	) top ON top.company_id = tbc.id
+	<if test="companyIds != null" >
+      ${companyIds}
+    </if>
+    GROUP BY
+			tbc.id
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <sql id="Example_ProductRankingWhere_Clause">
+  	<where>
+  		top.order_id = tos.id
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+        and
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_ProductRankingColumn_List">
+	tp.id productId,
+	tp.product_name productName,
+	(SELECT tpcr.category_name from t_product_category_ref tpcr where tp.id = tpcr.product_id ) categoryName,
+	IFNULL(sum(top.amount_total),'0') totalAmount,
+	IFNULL(sum(top.nums),'0') totalNums
+  </sql>
+  <select id="findProductRankingByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_ProductRankingColumn_List" />
+    FROM
+		t_product tp
+		LEFT JOIN (
+			SELECT
+				top.nums,
+				top.amount_total,
+				top.product_id
+			FROM
+				t_order_product top,
+				t_order tos
+			<if test="_parameter != null" >
+		      <include refid="Example_ProductRankingWhere_Clause" />
+		    </if>
+		) top ON tp.id = top.product_id,t_product_category_ref tpcr
+	where tp.id = tpcr.product_id
+		<if test= "categoryId != null and categoryId != ''">
+			AND tpcr.category_id = #{categoryId}
+		</if>
+	GROUP BY
+		tp.id
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="findProductDeliveryByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_ProductRankingColumn_List" />,top.delivery_time deliveryTime
+    FROM
+		t_product tp
+		INNER JOIN (
+			SELECT
+				top.nums,
+				top.amount_total,
+				top.product_id,
+				tos.delivery_time
+			FROM
+				t_order_product top,
+				t_order tos
+			<if test="_parameter != null" >
+		      <include refid="Example_ProductRankingWhere_Clause" />
+		    </if>
+		) top ON tp.id = top.product_id
+		<if test= "id != null and id != ''">
+			where tp.id = #{id}
+		</if>
+	GROUP BY
+		tp.id, top.delivery_time
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="queryMonthChartData" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis">
+  	SELECT
+		IFNULL(sum(top.amount_total), '0') totalMonthAmount
+	FROM
+		t_order_product top,
+		t_order tos, 
+		t_base_company tbc
+	WHERE
+		top.order_id = tos.id
+	AND top.company_id = tbc.id 
+	AND tbc.id in 
+	<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+	AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') = #{queryData}
+  </select>
+  <select id="queryPayAmountData" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis">
+  	SELECT
+		sum(tos.amount_pay) payAmount,
+		(
+			sum(tos.amount_pay) + (
+				SELECT
+					sum(tos.amount_total)
+				FROM
+					t_order tos, 
+					t_base_company tbc
+				WHERE
+					tos.STATUS = '200'
+					AND tos.pur_company_id = tbc.id 
+					AND tbc.id in 
+					<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+				        #{id}
+				    </foreach>
+			)
+		) totalPayAmount,
+		(
+			SELECT
+					sum(tos.amount_total)
+				FROM
+					t_order tos, 
+					t_base_company tbc
+				WHERE
+					tos.STATUS = '200'
+					AND tos.pur_company_id = tbc.id 
+					AND tbc.id in 
+					<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+				        #{id}
+				    </foreach>
+		) notPayAmount
+	FROM
+		t_order tos, 
+		t_base_company tbc
+	WHERE
+		tos.STATUS = '700'
+		AND tos.pur_company_id = tbc.id 
+		AND tbc.id in 
+		<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+	        #{id}
+	    </foreach>
+  </select>
+  
+  <select id="querylineGYLLegendList" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  	select id categoryId,category_name categoryName from t_product_category where category_parent_id = #{categoryId}
+  </select>
+  
+  <select id="queryProductLineChartData" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  	SELECT
+		tpc.id categoryId,
+		tpc.category_name categoryName,
+		IFNULL(topc.totalNums, '0') nums
+	FROM
+		(
+			SELECT
+				id,
+				category_name
+			FROM
+				t_product_category
+		) tpc
+	LEFT JOIN (
+		SELECT
+			sum(top.nums) totalNums,
+			top.category_id
+		FROM
+			t_order_product top,
+			t_order tos, 
+			t_base_company tbc
+		WHERE
+			top.order_id = tos.id
+		AND top.company_id = tbc.id 
+		AND tbc.id in 
+		<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+	        #{id}
+	    </foreach>
+		AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') = #{queryData}
+		GROUP BY
+			top.category_id
+	) topc ON tpc.id = topc.category_id
+  </select>
+  
+  <select id="queryProductPieChartData" parameterType="com.els.runhe.statisticAnalysis.entity.OrderStatisticAnalysis" resultMap="chartResultMap">
+  	SELECT
+		tpc.id categoryId,
+		tpc.category_name categoryName,
+		IFNULL(topc.totalNums, '0') nums
+	FROM
+		(
+			SELECT
+				id,
+				category_name
+			FROM
+				t_product_category
+		) tpc
+	LEFT JOIN (
+		SELECT
+			sum(top.nums) totalNums,
+			top.category_id
+		FROM
+			t_order_product top,
+			t_order tos, 
+			t_base_company tbc
+		WHERE
+			top.order_id = tos.id
+		AND top.company_id = tbc.id 
+		AND tbc.id in 
+		<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		#{id}
+		</foreach>
+		<if test="startDate != null and startDate != ''" >
+			AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &gt;= #{startDate}
+			AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= #{endDate}
+	     </if>
+	     <if test="startDate == null or startDate == ''" >
+			AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &gt;= concat(
+				date_format(LAST_DAY(now()), '%Y-%m-'),
+				'01'
+			)
+			AND DATE_FORMAT(tos.add_time, '%Y-%m-%d') &lt;= LAST_DAY(now())
+	     </if>
+		GROUP BY
+			top.category_id
+	) topc ON tpc.id = topc.category_id
+  </select>
+  <select id="querDealerAreaList" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisArea" resultType="java.lang.String">
+  	SELECT DISTINCT
+		area
+	FROM
+		t_base_company
+	WHERE
+		area IS NOT NULL 
+	AND AREA != ''
+	AND id in 
+	<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+  </select>
+  
+  <resultMap id="areaRemakeringResult" type="com.els.runhe.statisticAnalysis.entity.AnalysisArea" >
+  	<result column="area_name" property="areaName" jdbcType="VARCHAR" />
+  	<result column="amount_total" property="amountTotal" jdbcType="VARCHAR" />
+  	<result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+  	<result column="area_type" property="areaType" jdbcType="VARCHAR" />
+  	<result column="present" property="present" jdbcType="VARCHAR" />
+  	<result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="queryAreaDataList" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisArea" resultMap="areaRemakeringResult">
+  	SELECT
+		tdealer.region_name area_name,
+		IFNULL(tmonth.amount_total, '0') amount_total,
+		tmonth.order_time order_time,
+		'DQ' area_type
+	FROM
+		(
+			SELECT
+				tbc.ID,
+				tbc.PROVINCE,
+				tbr.region_name
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.area = #{area}
+			AND tbc.PROVINCE = tbr.id
+			GROUP BY
+				tbc.id
+		) tdealer
+	LEFT JOIN (
+		SELECT
+			sum(top.amount_total) amount_total,
+			top.company_id,
+			DATE_FORMAT(tos.add_time, '%Y-%m') order_time
+		FROM
+			t_order_product top,
+			t_order tos
+		WHERE
+			top.order_id = tos.id
+		AND DATE_FORMAT(tos.add_time, '%Y') = DATE_FORMAT(now(), '%Y')
+		GROUP BY
+			DATE_FORMAT(tos.add_time, '%Y-%m'),
+			top.company_id
+	) tmonth ON tdealer.ID = tmonth.company_id
+  </select>
+  
+  <select id="queryProvinceDataList" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisArea" resultMap="areaRemakeringResult">
+  	SELECT
+		tdealer.region_name area_name,	
+		IFNULL(tmonth.amount_total, '0') amount_total,
+		tmonth.order_time order_time,
+		'SQ' area_type
+	FROM
+		(
+			SELECT
+				tbc.ID,
+				tbc.PROVINCE,
+				tbr.region_name
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.area = #{area}
+			AND tbc.PROVINCE = tbr.id
+			GROUP BY
+				tbc.id
+		) tdealer
+	LEFT JOIN (
+		SELECT
+			sum(top.amount_total) amount_total,
+			top.company_id,
+			DATE_FORMAT(tos.add_time, '%Y-%m') order_time
+		FROM
+			t_order_product top,
+			t_order tos
+		WHERE
+			top.order_id = tos.id
+		AND DATE_FORMAT(tos.add_time, '%Y') = DATE_FORMAT(now(), '%Y')
+		GROUP BY
+			DATE_FORMAT(tos.add_time, '%Y-%m'),
+			top.company_id
+	) tmonth ON tdealer.ID = tmonth.company_id
+  </select>
+  
+  
+  <select id="queryProvinceProductDataList" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisArea" resultMap="areaRemakeringResult">
+  	SELECT
+		tdealer.region_name area_name,
+		IFNULL(tproduct.amount_total, '0') amount_total,
+		IFNULL(zpproduct.amount_total, '0') present,
+		tproduct.category_id
+	FROM
+		(
+			SELECT
+				tbc.ID,
+				tbc.PROVINCE,
+				tbr.region_name
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.area = #{area}
+			AND tbc.PROVINCE = tbr.id
+			GROUP BY
+				tbc.id
+		) tdealer
+	LEFT JOIN (
+		SELECT
+			sum(top.amount_total) amount_total,
+			top.company_id,
+			top.category_id
+		FROM
+			t_order_product top,
+			t_order tos
+		WHERE
+			top.order_id = tos.id
+		GROUP BY
+			top.company_id,
+			top.category_id
+	) tproduct ON tdealer.ID = tproduct.company_id
+	LEFT JOIN (
+		SELECT
+			sum(top.amount_total) amount_total,
+			top.company_id
+		FROM
+			t_order_product top,
+			t_product tp
+		WHERE
+			top.product_id = tp.id
+		AND tp.type = '2'
+		GROUP BY
+			top.company_id
+	) zpproduct ON tdealer.ID = zpproduct.company_id
+  </select>
+</mapper>

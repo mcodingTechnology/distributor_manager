@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.market.dao.design.MarketDesignedMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.market.entity.design.MarketDesigned" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="design_apply_id" property="designApplyId" jdbcType="VARCHAR" />
+    <result column="design_img_name" property="designImgName" jdbcType="VARCHAR" />
+    <result column="design_img_url" property="designImgUrl" jdbcType="VARCHAR" />
+    <result column="design_img_type" property="designImgType" jdbcType="VARCHAR" />
+    <result column="design_number" property="designNumber" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="ext5" property="ext5" jdbcType="VARCHAR" />
+    <result column="ext6" property="ext6" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, design_apply_id, design_img_name, design_img_url, design_img_type, design_number, 
+    remark, ext1, ext2, ext3, ext4, ext5, ext6, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.design.MarketDesignedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_designed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_designed
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_market_designed
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.market.entity.design.MarketDesignedExample" >
+    delete from t_market_designed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.market.entity.design.MarketDesigned" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_designed (design_apply_id, design_img_name, design_img_url, 
+      design_img_type, design_number, remark, 
+      ext1, ext2, ext3, ext4, 
+      ext5, ext6, create_time, 
+      creater, update_time, updater
+      )
+    values (#{designApplyId,jdbcType=VARCHAR}, #{designImgName,jdbcType=VARCHAR}, #{designImgUrl,jdbcType=VARCHAR}, 
+      #{designImgType,jdbcType=VARCHAR}, #{designNumber,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, 
+      #{ext5,jdbcType=VARCHAR}, #{ext6,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.market.entity.design.MarketDesigned" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_designed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="designApplyId != null" >
+        design_apply_id,
+      </if>
+      <if test="designImgName != null" >
+        design_img_name,
+      </if>
+      <if test="designImgUrl != null" >
+        design_img_url,
+      </if>
+      <if test="designImgType != null" >
+        design_img_type,
+      </if>
+      <if test="designNumber != null" >
+        design_number,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="ext5 != null" >
+        ext5,
+      </if>
+      <if test="ext6 != null" >
+        ext6,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="designApplyId != null" >
+        #{designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgName != null" >
+        #{designImgName,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgUrl != null" >
+        #{designImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgType != null" >
+        #{designImgType,jdbcType=VARCHAR},
+      </if>
+      <if test="designNumber != null" >
+        #{designNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.market.entity.design.MarketDesignedExample" resultType="java.lang.Integer" >
+    select count(*) from t_market_designed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_market_designed
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.designApplyId != null" >
+        design_apply_id = #{record.designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designImgName != null" >
+        design_img_name = #{record.designImgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designImgUrl != null" >
+        design_img_url = #{record.designImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designImgType != null" >
+        design_img_type = #{record.designImgType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designNumber != null" >
+        design_number = #{record.designNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null" >
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext6 != null" >
+        ext6 = #{record.ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_market_designed
+    set id = #{record.id,jdbcType=INTEGER},
+      design_apply_id = #{record.designApplyId,jdbcType=VARCHAR},
+      design_img_name = #{record.designImgName,jdbcType=VARCHAR},
+      design_img_url = #{record.designImgUrl,jdbcType=VARCHAR},
+      design_img_type = #{record.designImgType,jdbcType=VARCHAR},
+      design_number = #{record.designNumber,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      ext6 = #{record.ext6,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.market.entity.design.MarketDesigned" >
+    update t_market_designed
+    <set >
+      <if test="designApplyId != null" >
+        design_apply_id = #{designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgName != null" >
+        design_img_name = #{designImgName,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgUrl != null" >
+        design_img_url = #{designImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="designImgType != null" >
+        design_img_type = #{designImgType,jdbcType=VARCHAR},
+      </if>
+      <if test="designNumber != null" >
+        design_number = #{designNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6 = #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.market.entity.design.MarketDesigned" >
+    update t_market_designed
+    set design_apply_id = #{designApplyId,jdbcType=VARCHAR},
+      design_img_name = #{designImgName,jdbcType=VARCHAR},
+      design_img_url = #{designImgUrl,jdbcType=VARCHAR},
+      design_img_type = #{designImgType,jdbcType=VARCHAR},
+      design_number = #{designNumber,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      ext6 = #{ext6,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.design.MarketDesignedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_designed
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

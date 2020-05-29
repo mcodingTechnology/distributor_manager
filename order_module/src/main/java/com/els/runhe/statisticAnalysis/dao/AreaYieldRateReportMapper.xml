@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.statisticAnalysis.dao.AreaYieldRateReportMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.statisticAnalysis.entity.AreaYieldRateReport" >
+    <id column="area" property="area" jdbcType="INTEGER" />
+    <result column="yieldRate" property="monthYieldRate" jdbcType="DECIMAL" />
+    <result column="province" property="province" jdbcType="DECIMAL" />
+    <result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    area,yieldRate
+  </sql>
+  <select id="queryAreaYieldRate" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT tbc.AREA,ifnull(v.payAmount/v.targetAmount*100,0) yieldRate from 
+		(
+			SELECT
+				<!-- tbc.province,
+				tbr.region_name, -->
+				tbc.AREA
+			FROM
+				t_base_company tbc,t_base_region tbr
+			WHERE tbr.id = tbc.PROVINCE
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+		    GROUP BY tbc.AREA
+		) tbc
+ 	LEFT JOIN (
+		SELECT a.AREA,a.payAmount,b.targetAmount from (
+			select tbc.AREA,SUM(log.pay_amount) payAmount FROM t_base_company tbc, t_analysis_finance_log log 
+			where tbc.id = log.company_id 
+			AND DATE_FORMAT(log.pay_time,'%Y-%m') IN 
+			<foreach collection="yearMonthList" item="item" open="(" close=")" separator="," >
+              		#{item}
+            </foreach>
+            AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach> 
+			GROUP BY tbc.AREA) a,
+			(SELECT tbc.AREA,SUM(tcrt.MONTH_REFUND_TARGET) targetAmount from t_base_company tbc, t_contract tc, t_contract_refund_target tcrt 
+			where tbc.id = tc.PARTY_B_ID 
+			AND tcrt.CONTRACT_ID = tc.id 
+			AND	tc. STATUS = 'submit' 
+			AND tc.IS_ENABLE = '1' 
+			AND tcrt.month in 
+			<foreach collection="monthList" item="item" open="(" close=")" separator="," >
+              		#{item}
+            </foreach>
+			AND #{startTime} &gt;= DATE_FORMAT(tc.START_DATE,'%Y-%m') 
+			AND #{endTime} &lt;= DATE_FORMAT(tc.END_DATE,'%Y-%m') 
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY tbc.AREA) b
+		where a.AREA = b.AREA) v ON tbc.AREA = v.AREA
+	ORDER BY yieldRate desc
+  </select>
+  
+  <select id="queryProvinceYieldRate" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT tbc.province,tbc.region_name provinceName, tbc.AREA,ifnull(v.payAmount/v.targetAmount*100,0) yieldRate from 
+		(
+				SELECT
+					tbc.province,tbr.region_name,tbc.AREA
+				FROM
+					t_base_company tbc,t_base_region tbr
+				WHERE tbr.id = tbc.PROVINCE
+				AND tbc.id in 
+				<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+			        #{id}
+			    </foreach>
+			) tbc
+	LEFT JOIN (
+		SELECT a.PROVINCE,a.AREA,a.payAmount,b.targetAmount from (
+			select tbc.PROVINCE,tbc.AREA,SUM(log.pay_amount) payAmount FROM t_base_company tbc, t_analysis_finance_log log 
+			where tbc.id = log.company_id 
+			AND DATE_FORMAT(log.pay_time,'%Y-%m') IN 
+			<foreach collection="yearMonthList" item="item" open="(" close=")" separator="," >
+              		#{item}
+            </foreach>
+            AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY tbc.PROVINCE) a,
+			(SELECT tbc.PROVINCE,tbc.AREA,SUM(tcrt.MONTH_REFUND_TARGET) targetAmount from t_base_company tbc, t_contract tc, t_contract_refund_target tcrt 
+			where tbc.id = tc.PARTY_B_ID 
+			AND tcrt.CONTRACT_ID = tc.id 
+			AND	tc. STATUS = 'submit'
+			AND tc.IS_ENABLE = '1'
+			AND tcrt.month in 
+			<foreach collection="monthList" item="item" open="(" close=")" separator="," >
+              		#{item}
+            </foreach> 
+			AND #{startTime} &gt;= DATE_FORMAT(tc.START_DATE,'%Y-%m') 
+			AND #{endTime} &lt;= DATE_FORMAT(tc.END_DATE,'%Y-%m') 
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY tbc.PROVINCE) b
+		where a.PROVINCE = b.PROVINCE) v ON tbc.PROVINCE = v.PROVINCE
+	GROUP BY tbc.PROVINCE
+	ORDER BY yieldRate desc
+  </select>	
+  
+  <resultMap id="BaseResultMaps" type="com.els.runhe.statisticAnalysis.entity.AreaSummaryTable" >
+    <id column="area" property="area" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="provinceName" property="provinceName" jdbcType="VARCHAR" />
+    <result column="cityId" property="cityId" jdbcType="VARCHAR" />
+    <result column="cityName" property="cityName" jdbcType="VARCHAR" />
+    <result column="companyId" property="companyId" jdbcType="VARCHAR" />
+    <result column="companyName" property="companyName" jdbcType="VARCHAR" />
+    <result column="payTime" property="payTime" jdbcType="VARCHAR" />
+    <result column="payAmount" property="payAmount" jdbcType="DECIMAL" />
+    <result column="stateDate" property="stateDate" jdbcType="VARCHAR" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="monthTargetTotal" property="monthTargetTotal" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <select id="queryProvince" parameterType="java.util.Map" resultMap="BaseResultMaps" >
+    SELECT
+				tbc.AREA, 
+				tbc.PROVINCE, 
+				tbr.region_name provinceName
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.PROVINCE = tbr.id
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY 
+				tbc.PROVINCE
+			ORDER BY
+				tbc.AREA
+  </select>	
+  
+  <select id="queryAreaSummary" parameterType="java.util.Map" resultMap="BaseResultMaps" >
+    SELECT
+		tcompany.area,
+		tcompany.PROVINCE,
+		tcompany.region_name provinceName,
+		ifnull(tamount.pay_amount,0) payAmount,
+		tamount.pay_time payTime,
+		ifnull(t_target.MONTH,0) month,
+		ifnull(t_target.MONTH_REFUND_TARGET,0) monthTargetTotal
+	FROM
+		(
+			SELECT
+				tbc.AREA, 
+				tbc.PROVINCE, 
+				tbr.region_name 
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.PROVINCE = tbr.id
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY 
+				tbc.PROVINCE
+			ORDER BY
+				tbc.AREA
+		) tcompany
+	LEFT JOIN (
+		SELECT
+			tbc.PROVINCE,
+			sum(tafl.pay_amount) pay_amount,
+			DATE_FORMAT(tafl.pay_time, '%Y-%m') pay_time
+		FROM
+			t_analysis_finance_log tafl, t_base_company tbc
+		WHERE tbc.id = tafl.company_id
+			AND (DATE_FORMAT(tafl.pay_time, '%Y') = DATE_FORMAT(NOW(), '%Y') - 1
+			OR DATE_FORMAT(tafl.pay_time, '%Y') = DATE_FORMAT(NOW(), '%Y'))
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			GROUP BY
+				tbc.PROVINCE,
+				DATE_FORMAT(tafl.pay_time, '%Y-%m')
+	) tamount ON tcompany.PROVINCE = tamount.PROVINCE
+	LEFT JOIN (
+		SELECT
+			tcon.PROVINCE,
+			SUM(tcrt.MONTH_REFUND_TARGET) MONTH_REFUND_TARGET,
+			tcrt.`MONTH`
+		FROM
+			(
+				SELECT
+					tc.id,
+					tbc.PROVINCE
+				FROM
+					t_contract tc,t_base_company tbc
+				WHERE
+					tbc.id = tc.PARTY_B_ID
+				AND	tc. STATUS = 'submit'
+				AND tc.IS_ENABLE = '1'
+				AND DATE_FORMAT(tc.START_DATE, '%Y-%m-%d') &lt;= DATE_FORMAT(now(), '%Y-%m-%d')
+				AND DATE_FORMAT(tc.END_DATE, '%Y-%m-%d') &gt;= DATE_FORMAT(now(), '%Y-%m-%d')
+				AND tbc.id in 
+				<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+			        #{id}
+			    </foreach>
+			) tcon
+		LEFT JOIN t_contract_refund_target tcrt ON tcon.id = tcrt.CONTRACT_ID
+		GROUP BY tcon.PROVINCE, tcrt.`MONTH`
+	) t_target ON tcompany.PROVINCE = t_target.PROVINCE
+	ORDER BY
+	tcompany.area
+  </select>	
+  
+  <select id="querySalesDetailReport" parameterType="java.util.Map" resultMap="BaseResultMaps" >
+	    SELECT
+			tbc.AREA, 
+			tbc.PROVINCE, 
+			tbr.region_name provinceName, 
+			tbc.city cityId,
+			(select region_name from t_base_region tbr where tbc.CITY = tbr.id) cityName,
+			tbc.ID companyId,
+			tbc.COMPANY_FULL_NAME companyName
+		FROM
+			t_base_company tbc,
+			t_base_region tbr
+		WHERE
+			tbc.PROVINCE = tbr.id
+		AND tbc.id in 
+		<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+	        #{id}
+	    </foreach>
+		ORDER BY
+			tbc.AREA,tbc.PROVINCE
+  </select>	
+  
+  <select id="salesDetailReport" parameterType="java.util.Map" resultMap="BaseResultMaps" >
+  	SELECT
+		tcompany.area,
+		tcompany.PROVINCE,
+		tcompany.region_name provinceName,
+		tcompany.id companyId,
+		tcompany.COMPANY_FULL_NAME companyName,
+		tamount.pay_time payTime,
+		tamount.pay_amount payAmount,
+		t_target.START_DATE stateDate,
+		t_target. MONTH month,
+		t_target.MONTH_REFUND_TARGET monthTargetTotal
+	FROM
+		(
+			SELECT
+				tbc.ID,
+				tbr.region_name,
+				tbc.PROVINCE,
+				tbc.CITY,
+				tbc.AREA,
+				tbc.COMPANY_FULL_NAME
+			FROM
+				t_base_company tbc,
+				t_base_region tbr
+			WHERE
+				tbc.PROVINCE = tbr.id
+			AND tbc.id in 
+			<foreach collection="companyIds" item="id" index="index" open="(" separator="," close=")">
+		        #{id}
+		    </foreach>
+			ORDER BY
+				tbc.AREA,tbc.PROVINCE
+		) tcompany
+	LEFT JOIN (
+		SELECT
+			tafl.company_id,
+			sum(tafl.pay_amount) pay_amount,
+			DATE_FORMAT(tafl.pay_time, '%Y-%m') pay_time
+		FROM
+			t_analysis_finance_log tafl
+		WHERE
+			DATE_FORMAT(tafl.pay_time, '%Y') = DATE_FORMAT(NOW(), '%Y') - 1
+		OR DATE_FORMAT(tafl.pay_time, '%Y') = DATE_FORMAT(NOW(), '%Y')
+		GROUP BY
+			DATE_FORMAT(tafl.pay_time, '%Y-%m'),
+			tafl.company_id
+	) tamount ON tcompany.id = tamount.company_id
+	LEFT JOIN (
+		SELECT
+			tcon.PARTY_B_ID,
+			tcrt.MONTH_REFUND_TARGET,
+			tcrt.`MONTH`,
+			tcon.START_DATE
+		FROM
+			(
+				SELECT
+					tc.id,
+					tc.PARTY_B_ID,
+					tc.START_DATE
+				FROM
+					t_contract tc
+				WHERE
+					tc. STATUS = 'submit'
+				AND tc.IS_ENABLE = '1'
+				AND DATE_FORMAT(tc.START_DATE, '%Y-%m-%d') &lt;= DATE_FORMAT(now(), '%Y-%m-%d')
+				AND DATE_FORMAT(tc.END_DATE, '%Y-%m-%d') &gt;= DATE_FORMAT(now(), '%Y-%m-%d')
+				GROUP BY
+					PARTY_B_ID
+			) tcon
+		LEFT JOIN t_contract_refund_target tcrt ON tcon.id = tcrt.CONTRACT_ID
+	) t_target ON tcompany.id = t_target.PARTY_B_ID
+	ORDER BY
+		tcompany.area
+  </select>
+</mapper>

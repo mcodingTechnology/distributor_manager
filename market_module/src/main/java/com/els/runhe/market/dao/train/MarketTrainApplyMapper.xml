@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.market.dao.train.MarketTrainApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.market.entity.train.MarketTrainApply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="train_apply_id" property="trainApplyId" jdbcType="VARCHAR" />
+    <result column="theme_id" property="themeId" jdbcType="VARCHAR" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="applicant_id" property="applicantId" jdbcType="VARCHAR" />
+    <result column="applicant" property="applicant" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="training_number" property="trainingNumber" jdbcType="INTEGER" />
+    <result column="chain_name" property="chainName" jdbcType="VARCHAR" />
+    <result column="agent_channels" property="agentChannels" jdbcType="VARCHAR" />
+    <result column="agent_id" property="agentId" jdbcType="VARCHAR" />
+    <result column="agents" property="agents" jdbcType="VARCHAR" />
+    <result column="train_contact_name" property="trainContactName" jdbcType="VARCHAR" />
+    <result column="train_contact_phone" property="trainContactPhone" jdbcType="VARCHAR" />
+    <result column="expect_training_content" property="expectTrainingContent" jdbcType="VARCHAR" />
+    <result column="apply_train_time" property="applyTrainTime" jdbcType="TIMESTAMP" />
+    <result column="training_times" property="trainingTimes" jdbcType="VARCHAR" />
+    <result column="whether_training_ground" property="whetherTrainingGround" jdbcType="VARCHAR" />
+    <result column="train_address" property="trainAddress" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="atta_id" property="attaId" jdbcType="VARCHAR" />
+    <result column="atta_name" property="attaName" jdbcType="VARCHAR" />
+    <result column="atta_url" property="attaUrl" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="ext5" property="ext5" jdbcType="VARCHAR" />
+    <result column="ext6" property="ext6" jdbcType="VARCHAR" />
+    <result column="ext7" property="ext7" jdbcType="VARCHAR" />
+    <result column="ext8" property="ext8" jdbcType="VARCHAR" />
+    <result column="ext9" property="ext9" jdbcType="VARCHAR" />
+    <result column="ext10" property="ext10" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, train_apply_id, theme_id, theme, applicant_id, applicant, status, approval_status, category_id, category, city, training_number, 
+    chain_name, agent_channels, agent_id, agents, train_contact_name, train_contact_phone, 
+    expect_training_content, apply_train_time, training_times, whether_training_ground, 
+    train_address, remark, atta_id, atta_name, atta_url, ext1, ext2, ext3, ext4, ext5, 
+    ext6, ext7, ext8, ext9, ext10, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.train.MarketTrainApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_train_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_train_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTrainApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_train_apply
+    where train_apply_id = #{trainApplyId,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update t_market_train_apply set status = '5'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByExample" parameterType="com.els.runhe.market.entity.train.MarketTrainApplyExample" >
+    delete from t_market_train_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.market.entity.train.MarketTrainApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_train_apply (user_id, user_name, train_apply_id, theme_id, theme, applicant_id, 
+      applicant, status, approval_status, category_id, category, 
+      city, training_number, chain_name, 
+      agent_channels, agent_id, agents, 
+      train_contact_name, train_contact_phone, expect_training_content, 
+      apply_train_time, training_times, whether_training_ground, 
+      train_address, remark, atta_id, 
+      atta_name, atta_url, ext1, 
+      ext2, ext3, ext4, ext5, 
+      ext6, ext7, ext8, ext9, 
+      ext10, create_time, creater, 
+      update_time, updater)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{trainApplyId,jdbcType=VARCHAR},
+      #{themeId,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, #{applicantId,jdbcType=VARCHAR}, 
+      #{applicant,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{approvalStatus,jdbcType=INTEGER}, #{categoryId,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{trainingNumber,jdbcType=INTEGER}, #{chainName,jdbcType=VARCHAR}, 
+      #{agentChannels,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, #{agents,jdbcType=VARCHAR}, 
+      #{trainContactName,jdbcType=VARCHAR}, #{trainContactPhone,jdbcType=VARCHAR}, #{expectTrainingContent,jdbcType=VARCHAR}, 
+      #{applyTrainTime,jdbcType=TIMESTAMP}, #{trainingTimes,jdbcType=VARCHAR}, #{whetherTrainingGround,jdbcType=VARCHAR}, 
+      #{trainAddress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{attaId,jdbcType=VARCHAR}, 
+      #{attaName,jdbcType=VARCHAR}, #{attaUrl,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, 
+      #{ext6,jdbcType=VARCHAR}, #{ext7,jdbcType=VARCHAR}, #{ext8,jdbcType=VARCHAR}, #{ext9,jdbcType=VARCHAR}, 
+      #{ext10,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.market.entity.train.MarketTrainApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_train_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="trainApplyId != null" >
+        train_apply_id,
+      </if>
+      <if test="themeId != null" >
+        theme_id,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="applicantId != null" >
+        applicant_id,
+      </if>
+      <if test="applicant != null" >
+        applicant,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="trainingNumber != null" >
+        training_number,
+      </if>
+      <if test="chainName != null" >
+        chain_name,
+      </if>
+      <if test="agentChannels != null" >
+        agent_channels,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="agents != null" >
+        agents,
+      </if>
+      <if test="trainContactName != null" >
+        train_contact_name,
+      </if>
+      <if test="trainContactPhone != null" >
+        train_contact_phone,
+      </if>
+      <if test="expectTrainingContent != null" >
+        expect_training_content,
+      </if>
+      <if test="applyTrainTime != null" >
+        apply_train_time,
+      </if>
+      <if test="trainingTimes != null" >
+        training_times,
+      </if>
+      <if test="whetherTrainingGround != null" >
+        whether_training_ground,
+      </if>
+      <if test="trainAddress != null" >
+        train_address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="attaId != null" >
+        atta_id,
+      </if>
+      <if test="attaName != null" >
+        atta_name,
+      </if>
+      <if test="attaUrl != null" >
+        atta_url,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="ext5 != null" >
+        ext5,
+      </if>
+      <if test="ext6 != null" >
+        ext6,
+      </if>
+      <if test="ext7 != null" >
+        ext7,
+      </if>
+      <if test="ext8 != null" >
+        ext8,
+      </if>
+      <if test="ext9 != null" >
+        ext9,
+      </if>
+      <if test="ext10 != null" >
+        ext10,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainApplyId != null" >
+        #{trainApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null" >
+        #{themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantId != null" >
+        #{applicantId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicant != null" >
+        #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingNumber != null" >
+        #{trainingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="chainName != null" >
+        #{chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentChannels != null" >
+        #{agentChannels,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agents != null" >
+        #{agents,jdbcType=VARCHAR},
+      </if>
+      <if test="trainContactName != null" >
+        #{trainContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainContactPhone != null" >
+        #{trainContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="expectTrainingContent != null" >
+        #{expectTrainingContent,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTrainTime != null" >
+        #{applyTrainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainingTimes != null" >
+        #{trainingTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherTrainingGround != null" >
+        #{whetherTrainingGround,jdbcType=VARCHAR},
+      </if>
+      <if test="trainAddress != null" >
+        #{trainAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="attaId != null" >
+        #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.market.entity.train.MarketTrainApplyExample" resultType="java.lang.Integer" >
+    select count(*) from t_market_train_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_market_train_apply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainApplyId != null" >
+        train_apply_id = #{record.trainApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.themeId != null" >
+        theme_id = #{record.themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theme != null" >
+        theme = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantId != null" >
+        applicant_id = #{record.applicantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicant != null" >
+        applicant = #{record.applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainingNumber != null" >
+        training_number = #{record.trainingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.chainName != null" >
+        chain_name = #{record.chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentChannels != null" >
+        agent_channels = #{record.agentChannels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agents != null" >
+        agents = #{record.agents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainContactName != null" >
+        train_contact_name = #{record.trainContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainContactPhone != null" >
+        train_contact_phone = #{record.trainContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectTrainingContent != null" >
+        expect_training_content = #{record.expectTrainingContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyTrainTime != null" >
+        apply_train_time = #{record.applyTrainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.trainingTimes != null" >
+        training_times = #{record.trainingTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whetherTrainingGround != null" >
+        whether_training_ground = #{record.whetherTrainingGround,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainAddress != null" >
+        train_address = #{record.trainAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaId != null" >
+        atta_id = #{record.attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaName != null" >
+        atta_name = #{record.attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaUrl != null" >
+        atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null" >
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext6 != null" >
+        ext6 = #{record.ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext7 != null" >
+        ext7 = #{record.ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext8 != null" >
+        ext8 = #{record.ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext9 != null" >
+        ext9 = #{record.ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext10 != null" >
+        ext10 = #{record.ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_market_train_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      train_apply_id = #{record.trainApplyId,jdbcType=VARCHAR},
+      theme_id = #{record.themeId,jdbcType=VARCHAR},
+      theme = #{record.theme,jdbcType=VARCHAR},
+      applicant_id = #{record.applicantId,jdbcType=VARCHAR},
+      applicant = #{record.applicant,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      training_number = #{record.trainingNumber,jdbcType=INTEGER},
+      chain_name = #{record.chainName,jdbcType=VARCHAR},
+      agent_channels = #{record.agentChannels,jdbcType=VARCHAR},
+      agent_id = #{record.agentId,jdbcType=VARCHAR},
+      agents = #{record.agents,jdbcType=VARCHAR},
+      train_contact_name = #{record.trainContactName,jdbcType=VARCHAR},
+      train_contact_phone = #{record.trainContactPhone,jdbcType=VARCHAR},
+      expect_training_content = #{record.expectTrainingContent,jdbcType=VARCHAR},
+      apply_train_time = #{record.applyTrainTime,jdbcType=TIMESTAMP},
+      training_times = #{record.trainingTimes,jdbcType=VARCHAR},
+      whether_training_ground = #{record.whetherTrainingGround,jdbcType=VARCHAR},
+      train_address = #{record.trainAddress,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      atta_id = #{record.attaId,jdbcType=VARCHAR},
+      atta_name = #{record.attaName,jdbcType=VARCHAR},
+      atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      ext6 = #{record.ext6,jdbcType=VARCHAR},
+      ext7 = #{record.ext7,jdbcType=VARCHAR},
+      ext8 = #{record.ext8,jdbcType=VARCHAR},
+      ext9 = #{record.ext9,jdbcType=VARCHAR},
+      ext10 = #{record.ext10,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.market.entity.train.MarketTrainApply" >
+    update t_market_train_apply
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainApplyId != null" >
+        train_apply_id = #{trainApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null" >
+        theme_id = #{themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantId != null" >
+        applicant_id = #{applicantId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicant != null" >
+        applicant = #{applicant,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="trainingNumber != null" >
+        training_number = #{trainingNumber,jdbcType=INTEGER},
+      </if>
+      <if test="chainName != null" >
+        chain_name = #{chainName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentChannels != null" >
+        agent_channels = #{agentChannels,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agents != null" >
+        agents = #{agents,jdbcType=VARCHAR},
+      </if>
+      <if test="trainContactName != null" >
+        train_contact_name = #{trainContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="trainContactPhone != null" >
+        train_contact_phone = #{trainContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="expectTrainingContent != null" >
+        expect_training_content = #{expectTrainingContent,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTrainTime != null" >
+        apply_train_time = #{applyTrainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainingTimes != null" >
+        training_times = #{trainingTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="whetherTrainingGround != null" >
+        whether_training_ground = #{whetherTrainingGround,jdbcType=VARCHAR},
+      </if>
+      <if test="trainAddress != null" >
+        train_address = #{trainAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="attaId != null" >
+        atta_id = #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        atta_name = #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        atta_url = #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6 = #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7 = #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8 = #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9 = #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10 = #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.market.entity.train.MarketTrainApply" >
+    update t_market_train_apply
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      train_apply_id = #{trainApplyId,jdbcType=VARCHAR},
+      theme_id = #{themeId,jdbcType=VARCHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      applicant_id = #{applicantId,jdbcType=VARCHAR},
+      applicant = #{applicant,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      training_number = #{trainingNumber,jdbcType=INTEGER},
+      chain_name = #{chainName,jdbcType=VARCHAR},
+      agent_channels = #{agentChannels,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=VARCHAR},
+      agents = #{agents,jdbcType=VARCHAR},
+      train_contact_name = #{trainContactName,jdbcType=VARCHAR},
+      train_contact_phone = #{trainContactPhone,jdbcType=VARCHAR},
+      expect_training_content = #{expectTrainingContent,jdbcType=VARCHAR},
+      apply_train_time = #{applyTrainTime,jdbcType=TIMESTAMP},
+      training_times = #{trainingTimes,jdbcType=VARCHAR},
+      whether_training_ground = #{whetherTrainingGround,jdbcType=VARCHAR},
+      train_address = #{trainAddress,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      atta_id = #{attaId,jdbcType=VARCHAR},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_url = #{attaUrl,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      ext6 = #{ext6,jdbcType=VARCHAR},
+      ext7 = #{ext7,jdbcType=VARCHAR},
+      ext8 = #{ext8,jdbcType=VARCHAR},
+      ext9 = #{ext9,jdbcType=VARCHAR},
+      ext10 = #{ext10,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.train.MarketTrainApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_train_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

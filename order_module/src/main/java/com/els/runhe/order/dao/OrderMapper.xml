@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.order.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.order.entity.Order" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pur_company_id" property="purCompanyId" jdbcType="VARCHAR" />
+    <result column="pur_company_name" property="purCompanyName" jdbcType="VARCHAR" />
+    <result column="purchase_order_no" property="purchaseOrderNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="sup_company_id" property="supCompanyId" jdbcType="VARCHAR" />
+    <result column="sup_company_name" property="supCompanyName" jdbcType="VARCHAR" />
+    <result column="order_user_id" property="orderUserId" jdbcType="VARCHAR" />
+    <result column="order_user_name" property="orderUserName" jdbcType="VARCHAR" />
+    <result column="order_user_phone" property="orderUserPhone" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="scene_code" property="sceneCode" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="delivery_status" property="deliveryStatus" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="amount_total" property="amountTotal" jdbcType="DECIMAL" />
+    <result column="amount_pay" property="amountPay" jdbcType="DECIMAL" />
+    <result column="amount_reduce" property="amountReduce" jdbcType="DECIMAL" />
+    <result column="amount_preferential" property="amountPreferential" jdbcType="DECIMAL" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_type" property="deliveryType" jdbcType="INTEGER" />
+    <result column="delivery_name" property="deliveryName" jdbcType="VARCHAR" />
+    <result column="delivery_code" property="deliveryCode" jdbcType="VARCHAR" />
+    <result column="delivery_priority" property="deliveryPriority" jdbcType="INTEGER" />
+    <result column="freight" property="freight" jdbcType="INTEGER" />
+    <result column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="address_phone" property="addressPhone" jdbcType="VARCHAR" />
+    <result column="address_reveiver" property="addressReveiver" jdbcType="VARCHAR" />
+    <result column="address_regson" property="addressRegson" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="preset_receiver_time" property="presetReceiverTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="return_status" property="returnStatus" jdbcType="INTEGER" />
+    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="apply_sale_support" property="applySaleSupport" jdbcType="DECIMAL" />
+    <result column="apply_market_support" property="applyMarketSupport" jdbcType="DECIMAL" />
+    <result column="amount_tax" property="amountTax" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pur_company_id, pur_company_name, purchase_order_no, user_id, user_name, add_time, 
+    sup_company_id, sup_company_name, order_user_id, order_user_name, order_user_phone, 
+    order_no, trade_no, type, scene_code, status, delivery_status, approval_status, approval_time, 
+    nums, pay_type, tax, amount_total, amount_pay, amount_reduce, amount_preferential, 
+    pay_time, delivery_type, delivery_name, delivery_code, delivery_priority, freight, 
+    address_id, address_phone, address_reveiver, address_regson, address, preset_receiver_time, 
+    delivery_time, receive_time, return_status, return_time, remark, area, contract_no, 
+    apply_sale_support, apply_market_support, amount_tax
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.order.entity.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.order.entity.OrderExample" >
+    delete from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.order.entity.Order" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_order (id, pur_company_id, pur_company_name, 
+      purchase_order_no, user_id, user_name, 
+      add_time, sup_company_id, sup_company_name, 
+      order_user_id, order_user_name, order_user_phone, 
+      order_no, trade_no, type, 
+      scene_code, status, delivery_status, 
+      approval_status, approval_time, nums, 
+      pay_type, tax, amount_total, 
+      amount_pay, amount_reduce, amount_preferential, 
+      pay_time, delivery_type, delivery_name, 
+      delivery_code, delivery_priority, freight, 
+      address_id, address_phone, address_reveiver, 
+      address_regson, address, preset_receiver_time, 
+      delivery_time, receive_time, return_status, 
+      return_time, remark, area, 
+      contract_no, apply_sale_support, apply_market_support, 
+      amount_tax)
+    values (#{_uuid}, #{purCompanyId,jdbcType=VARCHAR}, #{purCompanyName,jdbcType=VARCHAR}, 
+      #{purchaseOrderNo,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{supCompanyId,jdbcType=VARCHAR}, #{supCompanyName,jdbcType=VARCHAR}, 
+      #{orderUserId,jdbcType=VARCHAR}, #{orderUserName,jdbcType=VARCHAR}, #{orderUserPhone,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{sceneCode,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{deliveryStatus,jdbcType=INTEGER}, 
+      #{approvalStatus,jdbcType=INTEGER}, #{approvalTime,jdbcType=TIMESTAMP}, #{nums,jdbcType=INTEGER}, 
+      #{payType,jdbcType=VARCHAR}, #{tax,jdbcType=DECIMAL}, #{amountTotal,jdbcType=DECIMAL}, 
+      #{amountPay,jdbcType=DECIMAL}, #{amountReduce,jdbcType=DECIMAL}, #{amountPreferential,jdbcType=DECIMAL}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{deliveryType,jdbcType=INTEGER}, #{deliveryName,jdbcType=VARCHAR}, 
+      #{deliveryCode,jdbcType=VARCHAR}, #{deliveryPriority,jdbcType=INTEGER}, #{freight,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=INTEGER}, #{addressPhone,jdbcType=VARCHAR}, #{addressReveiver,jdbcType=VARCHAR}, 
+      #{addressRegson,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{presetReceiverTime,jdbcType=TIMESTAMP}, 
+      #{deliveryTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, #{returnStatus,jdbcType=INTEGER}, 
+      #{returnTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{applySaleSupport,jdbcType=DECIMAL}, #{applyMarketSupport,jdbcType=DECIMAL}, 
+      #{amountTax,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.order.entity.Order" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="purCompanyId != null" >
+        pur_company_id,
+      </if>
+      <if test="purCompanyName != null" >
+        pur_company_name,
+      </if>
+      <if test="purchaseOrderNo != null" >
+        purchase_order_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="supCompanyId != null" >
+        sup_company_id,
+      </if>
+      <if test="supCompanyName != null" >
+        sup_company_name,
+      </if>
+      <if test="orderUserId != null" >
+        order_user_id,
+      </if>
+      <if test="orderUserName != null" >
+        order_user_name,
+      </if>
+      <if test="orderUserPhone != null" >
+        order_user_phone,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="sceneCode != null" >
+        scene_code,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deliveryStatus != null" >
+        delivery_status,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="approvalTime != null" >
+        approval_time,
+      </if>
+      <if test="nums != null" >
+        nums,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="amountTotal != null" >
+        amount_total,
+      </if>
+      <if test="amountPay != null" >
+        amount_pay,
+      </if>
+      <if test="amountReduce != null" >
+        amount_reduce,
+      </if>
+      <if test="amountPreferential != null" >
+        amount_preferential,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type,
+      </if>
+      <if test="deliveryName != null" >
+        delivery_name,
+      </if>
+      <if test="deliveryCode != null" >
+        delivery_code,
+      </if>
+      <if test="deliveryPriority != null" >
+        delivery_priority,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="addressPhone != null" >
+        address_phone,
+      </if>
+      <if test="addressReveiver != null" >
+        address_reveiver,
+      </if>
+      <if test="addressRegson != null" >
+        address_regson,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="presetReceiverTime != null" >
+        preset_receiver_time,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+      <if test="returnStatus != null" >
+        return_status,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="applySaleSupport != null" >
+        apply_sale_support,
+      </if>
+      <if test="applyMarketSupport != null" >
+        apply_market_support,
+      </if>
+      <if test="amountTax != null" >
+        amount_tax,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{_uuid},
+      <if test="purCompanyId != null" >
+        #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="purCompanyName != null" >
+        #{purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseOrderNo != null" >
+        #{purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supCompanyId != null" >
+        #{supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyName != null" >
+        #{supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserId != null" >
+        #{orderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserName != null" >
+        #{orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserPhone != null" >
+        #{orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sceneCode != null" >
+        #{sceneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        #{deliveryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null" >
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nums != null" >
+        #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="amountTotal != null" >
+        #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPay != null" >
+        #{amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReduce != null" >
+        #{amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPreferential != null" >
+        #{amountPreferential,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryType != null" >
+        #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryName != null" >
+        #{deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCode != null" >
+        #{deliveryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPriority != null" >
+        #{deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressPhone != null" >
+        #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressReveiver != null" >
+        #{addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegson != null" >
+        #{addressRegson,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="presetReceiverTime != null" >
+        #{presetReceiverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnStatus != null" >
+        #{returnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applySaleSupport != null" >
+        #{applySaleSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="applyMarketSupport != null" >
+        #{applyMarketSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="amountTax != null" >
+        #{amountTax,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.order.entity.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purCompanyId != null" >
+        pur_company_id = #{record.purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purCompanyName != null" >
+        pur_company_name = #{record.purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseOrderNo != null" >
+        purchase_order_no = #{record.purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supCompanyId != null" >
+        sup_company_id = #{record.supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supCompanyName != null" >
+        sup_company_name = #{record.supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserId != null" >
+        order_user_id = #{record.orderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserName != null" >
+        order_user_name = #{record.orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderUserPhone != null" >
+        order_user_phone = #{record.orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeNo != null" >
+        trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.sceneCode != null" >
+        scene_code = #{record.sceneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryStatus != null" >
+        delivery_status = #{record.deliveryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalTime != null" >
+        approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nums != null" >
+        nums = #{record.nums,jdbcType=INTEGER},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tax != null" >
+        tax = #{record.tax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountTotal != null" >
+        amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountPay != null" >
+        amount_pay = #{record.amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountReduce != null" >
+        amount_reduce = #{record.amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountPreferential != null" >
+        amount_preferential = #{record.amountPreferential,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryType != null" >
+        delivery_type = #{record.deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryName != null" >
+        delivery_name = #{record.deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryCode != null" >
+        delivery_code = #{record.deliveryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryPriority != null" >
+        delivery_priority = #{record.deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="record.freight != null" >
+        freight = #{record.freight,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressPhone != null" >
+        address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressReveiver != null" >
+        address_reveiver = #{record.addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressRegson != null" >
+        address_regson = #{record.addressRegson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presetReceiverTime != null" >
+        preset_receiver_time = #{record.presetReceiverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliveryTime != null" >
+        delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receiveTime != null" >
+        receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.returnStatus != null" >
+        return_status = #{record.returnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.returnTime != null" >
+        return_time = #{record.returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNo != null" >
+        contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applySaleSupport != null" >
+        apply_sale_support = #{record.applySaleSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applyMarketSupport != null" >
+        apply_market_support = #{record.applyMarketSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountTax != null" >
+        amount_tax = #{record.amountTax,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order
+    set id = #{record.id,jdbcType=VARCHAR},
+      pur_company_id = #{record.purCompanyId,jdbcType=VARCHAR},
+      pur_company_name = #{record.purCompanyName,jdbcType=VARCHAR},
+      purchase_order_no = #{record.purchaseOrderNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      sup_company_id = #{record.supCompanyId,jdbcType=VARCHAR},
+      sup_company_name = #{record.supCompanyName,jdbcType=VARCHAR},
+      order_user_id = #{record.orderUserId,jdbcType=VARCHAR},
+      order_user_name = #{record.orderUserName,jdbcType=VARCHAR},
+      order_user_phone = #{record.orderUserPhone,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      scene_code = #{record.sceneCode,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      delivery_status = #{record.deliveryStatus,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      nums = #{record.nums,jdbcType=INTEGER},
+      pay_type = #{record.payType,jdbcType=VARCHAR},
+      tax = #{record.tax,jdbcType=DECIMAL},
+      amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      amount_pay = #{record.amountPay,jdbcType=DECIMAL},
+      amount_reduce = #{record.amountReduce,jdbcType=DECIMAL},
+      amount_preferential = #{record.amountPreferential,jdbcType=DECIMAL},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      delivery_type = #{record.deliveryType,jdbcType=INTEGER},
+      delivery_name = #{record.deliveryName,jdbcType=VARCHAR},
+      delivery_code = #{record.deliveryCode,jdbcType=VARCHAR},
+      delivery_priority = #{record.deliveryPriority,jdbcType=INTEGER},
+      freight = #{record.freight,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      address_reveiver = #{record.addressReveiver,jdbcType=VARCHAR},
+      address_regson = #{record.addressRegson,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      preset_receiver_time = #{record.presetReceiverTime,jdbcType=TIMESTAMP},
+      delivery_time = #{record.deliveryTime,jdbcType=TIMESTAMP},
+      receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+      return_status = #{record.returnStatus,jdbcType=INTEGER},
+      return_time = #{record.returnTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      apply_sale_support = #{record.applySaleSupport,jdbcType=DECIMAL},
+      apply_market_support = #{record.applyMarketSupport,jdbcType=DECIMAL},
+      amount_tax = #{record.amountTax,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.order.entity.Order" >
+    update t_order
+    <set >
+      <if test="purCompanyId != null" >
+        pur_company_id = #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="purCompanyName != null" >
+        pur_company_name = #{purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseOrderNo != null" >
+        purchase_order_no = #{purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supCompanyId != null" >
+        sup_company_id = #{supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyName != null" >
+        sup_company_name = #{supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserId != null" >
+        order_user_id = #{orderUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserName != null" >
+        order_user_name = #{orderUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUserPhone != null" >
+        order_user_phone = #{orderUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sceneCode != null" >
+        scene_code = #{sceneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        delivery_status = #{deliveryStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalTime != null" >
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nums != null" >
+        nums = #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="amountTotal != null" >
+        amount_total = #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPay != null" >
+        amount_pay = #{amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReduce != null" >
+        amount_reduce = #{amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPreferential != null" >
+        amount_preferential = #{amountPreferential,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type = #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryName != null" >
+        delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCode != null" >
+        delivery_code = #{deliveryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPriority != null" >
+        delivery_priority = #{deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="addressPhone != null" >
+        address_phone = #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressReveiver != null" >
+        address_reveiver = #{addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressRegson != null" >
+        address_regson = #{addressRegson,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="presetReceiverTime != null" >
+        preset_receiver_time = #{presetReceiverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnStatus != null" >
+        return_status = #{returnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applySaleSupport != null" >
+        apply_sale_support = #{applySaleSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="applyMarketSupport != null" >
+        apply_market_support = #{applyMarketSupport,jdbcType=DECIMAL},
+      </if>
+      <if test="amountTax != null" >
+        amount_tax = #{amountTax,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.order.entity.Order" >
+    update t_order
+    set pur_company_id = #{purCompanyId,jdbcType=VARCHAR},
+      pur_company_name = #{purCompanyName,jdbcType=VARCHAR},
+      purchase_order_no = #{purchaseOrderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      sup_company_id = #{supCompanyId,jdbcType=VARCHAR},
+      sup_company_name = #{supCompanyName,jdbcType=VARCHAR},
+      order_user_id = #{orderUserId,jdbcType=VARCHAR},
+      order_user_name = #{orderUserName,jdbcType=VARCHAR},
+      order_user_phone = #{orderUserPhone,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      scene_code = #{sceneCode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      delivery_status = #{deliveryStatus,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      nums = #{nums,jdbcType=INTEGER},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=DECIMAL},
+      amount_total = #{amountTotal,jdbcType=DECIMAL},
+      amount_pay = #{amountPay,jdbcType=DECIMAL},
+      amount_reduce = #{amountReduce,jdbcType=DECIMAL},
+      amount_preferential = #{amountPreferential,jdbcType=DECIMAL},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      delivery_type = #{deliveryType,jdbcType=INTEGER},
+      delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      delivery_code = #{deliveryCode,jdbcType=VARCHAR},
+      delivery_priority = #{deliveryPriority,jdbcType=INTEGER},
+      freight = #{freight,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      address_reveiver = #{addressReveiver,jdbcType=VARCHAR},
+      address_regson = #{addressRegson,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      preset_receiver_time = #{presetReceiverTime,jdbcType=TIMESTAMP},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      return_status = #{returnStatus,jdbcType=INTEGER},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      apply_sale_support = #{applySaleSupport,jdbcType=DECIMAL},
+      apply_market_support = #{applyMarketSupport,jdbcType=DECIMAL},
+      amount_tax = #{amountTax,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.order.entity.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

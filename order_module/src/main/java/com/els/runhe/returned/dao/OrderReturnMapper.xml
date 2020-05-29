@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.returned.dao.OrderReturnMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.returned.entity.OrderReturn" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="order_return_no" property="orderReturnNo" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="order_return_status" property="orderReturnStatus" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="pur_company_id" property="purCompanyId" jdbcType="VARCHAR" />
+    <result column="pur_company_name" property="purCompanyName" jdbcType="VARCHAR" />
+    <result column="sup_company_id" property="supCompanyId" jdbcType="VARCHAR" />
+    <result column="sup_company_name" property="supCompanyName" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="address_reveiver" property="addressReveiver" jdbcType="VARCHAR" />
+    <result column="address_phone" property="addressPhone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="order_return_user_name" property="orderReturnUserName" jdbcType="VARCHAR" />
+    <result column="order_return_phone" property="orderReturnPhone" jdbcType="VARCHAR" />
+    <result column="purchase_order_no" property="purchaseOrderNo" jdbcType="VARCHAR" />
+    <result column="option_contract" property="optionContract" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+    <result column="delivery_priority" property="deliveryPriority" jdbcType="INTEGER" />
+    <result column="return_order_type" property="returnOrderType" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="payType" property="paytype" jdbcType="VARCHAR" />
+    <result column="delivery_type" property="deliveryType" jdbcType="INTEGER" />
+    <result column="production_no" property="productionNo" jdbcType="VARCHAR" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
+    <result column="amount_total" property="amountTotal" jdbcType="DECIMAL" />
+    <result column="amount_reduce" property="amountReduce" jdbcType="DECIMAL" />
+    <result column="amount_pay" property="amountPay" jdbcType="DECIMAL" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="preset_return_time" property="presetReturnTime" jdbcType="TIMESTAMP" />
+    <result column="return_reason" property="returnReason" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="ext5" property="ext5" jdbcType="VARCHAR" />
+    <result column="ext6" property="ext6" jdbcType="VARCHAR" />
+    <result column="ext7" property="ext7" jdbcType="VARCHAR" />
+    <result column="ext8" property="ext8" jdbcType="VARCHAR" />
+    <result column="ext9" property="ext9" jdbcType="VARCHAR" />
+    <result column="ext10" property="ext10" jdbcType="VARCHAR" />
+    <result column="ext11" property="ext11" jdbcType="VARCHAR" />
+    <result column="ext12" property="ext12" jdbcType="VARCHAR" />
+    <result column="ext13" property="ext13" jdbcType="VARCHAR" />
+    <result column="ext14" property="ext14" jdbcType="VARCHAR" />
+    <result column="ext15" property="ext15" jdbcType="VARCHAR" />
+    <result column="ext16" property="ext16" jdbcType="VARCHAR" />
+    <result column="ext17" property="ext17" jdbcType="VARCHAR" />
+    <result column="ext18" property="ext18" jdbcType="VARCHAR" />
+    <result column="ext19" property="ext19" jdbcType="VARCHAR" />
+    <result column="ext20" property="ext20" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, order_return_no, order_time, order_return_status, approval_status, pur_company_id, 
+    pur_company_name, sup_company_id, sup_company_name, add_time, address_reveiver, address_phone, 
+    address, logistics_no, order_return_user_name, order_return_phone, purchase_order_no, option_contract, 
+    contract_no, order_remark, delivery_priority, return_order_type, tax, area, payType, 
+    delivery_type, production_no, nums, amount_total, amount_reduce, amount_pay, pay_time, 
+    preset_return_time, return_reason, audit_time, ext1, ext2, ext3, ext4, ext5, ext6, 
+    ext7, ext8, ext9, ext10, ext11, ext12, ext13, ext14, ext15, ext16, ext17, ext18, 
+    ext19, ext20, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.returned.entity.OrderReturnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_return
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByOrderReturnNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_return
+    where order_return_no = #{orderReturnNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_return
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteObjByOrderReturnNo" parameterType="java.lang.String" >
+    delete from t_order_return
+    where order_return_no = #{orderReturnNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.returned.entity.OrderReturnExample" >
+    delete from t_order_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.returned.entity.OrderReturn" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_return (user_id, user_name, order_return_no, 
+      order_time, order_return_status, approval_status, pur_company_id, 
+      pur_company_name, sup_company_id, sup_company_name, 
+      add_time, address_reveiver, address_phone, 
+      address, logistics_no, order_return_user_name, order_return_phone, 
+      purchase_order_no, option_contract, contract_no, 
+      order_remark, delivery_priority, return_order_type, 
+      tax, area, payType, 
+      delivery_type, production_no, nums, 
+      amount_total, amount_reduce, amount_pay, 
+      pay_time, preset_return_time, return_reason, 
+      audit_time, ext1, ext2, 
+      ext3, ext4, ext5, ext6, 
+      ext7, ext8, ext9, ext10, 
+      ext11, ext12, ext13, 
+      ext14, ext15, ext16, 
+      ext17, ext18, ext19, 
+      ext20, create_time, creater, 
+      update_time, updater)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{orderReturnNo,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{orderReturnStatus,jdbcType=INTEGER}, #{approvalStatus,jdbcType=INTEGER}, #{purCompanyId,jdbcType=VARCHAR}, 
+      #{purCompanyName,jdbcType=VARCHAR}, #{supCompanyId,jdbcType=VARCHAR}, #{supCompanyName,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{addressReveiver,jdbcType=VARCHAR}, #{addressPhone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR}, #{orderReturnUserName,jdbcType=VARCHAR}, #{orderReturnPhone,jdbcType=VARCHAR}, 
+      #{purchaseOrderNo,jdbcType=VARCHAR}, #{optionContract,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, 
+      #{orderRemark,jdbcType=VARCHAR}, #{deliveryPriority,jdbcType=INTEGER}, #{returnOrderType,jdbcType=VARCHAR}, 
+      #{tax,jdbcType=DECIMAL}, #{area,jdbcType=VARCHAR}, #{paytype,jdbcType=VARCHAR}, 
+      #{deliveryType,jdbcType=INTEGER}, #{productionNo,jdbcType=VARCHAR}, #{nums,jdbcType=INTEGER}, 
+      #{amountTotal,jdbcType=DECIMAL}, #{amountReduce,jdbcType=DECIMAL}, #{amountPay,jdbcType=DECIMAL}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{presetReturnTime,jdbcType=TIMESTAMP}, #{returnReason,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, 
+      #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, #{ext6,jdbcType=VARCHAR}, 
+      #{ext7,jdbcType=VARCHAR}, #{ext8,jdbcType=VARCHAR}, #{ext9,jdbcType=VARCHAR}, #{ext10,jdbcType=VARCHAR}, 
+      #{ext11,jdbcType=VARCHAR}, #{ext12,jdbcType=VARCHAR}, #{ext13,jdbcType=VARCHAR}, 
+      #{ext14,jdbcType=VARCHAR}, #{ext15,jdbcType=VARCHAR}, #{ext16,jdbcType=VARCHAR}, 
+      #{ext17,jdbcType=VARCHAR}, #{ext18,jdbcType=VARCHAR}, #{ext19,jdbcType=VARCHAR}, 
+      #{ext20,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.returned.entity.OrderReturn" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_order_return
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="orderReturnNo != null" >
+        order_return_no,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="orderReturnStatus != null" >
+        order_return_status,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="purCompanyId != null" >
+        pur_company_id,
+      </if>
+      <if test="purCompanyName != null" >
+        pur_company_name,
+      </if>
+      <if test="supCompanyId != null" >
+        sup_company_id,
+      </if>
+      <if test="supCompanyName != null" >
+        sup_company_name,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="addressReveiver != null" >
+        address_reveiver,
+      </if>
+      <if test="addressPhone != null" >
+        address_phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="logisticsNo != null" >
+        logistics_no,
+      </if>
+      <if test="orderReturnUserName != null" >
+        order_return_user_name,
+      </if>
+      <if test="orderReturnPhone != null" >
+        order_return_phone,
+      </if>
+      <if test="purchaseOrderNo != null" >
+        purchase_order_no,
+      </if>
+      <if test="optionContract != null" >
+        option_contract,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="orderRemark != null" >
+        order_remark,
+      </if>
+      <if test="deliveryPriority != null" >
+        delivery_priority,
+      </if>
+      <if test="returnOrderType != null" >
+        return_order_type,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="paytype != null" >
+        payType,
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type,
+      </if>
+      <if test="productionNo != null" >
+        production_no,
+      </if>
+      <if test="nums != null" >
+        nums,
+      </if>
+      <if test="amountTotal != null" >
+        amount_total,
+      </if>
+      <if test="amountReduce != null" >
+        amount_reduce,
+      </if>
+      <if test="amountPay != null" >
+        amount_pay,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="presetReturnTime != null" >
+        preset_return_time,
+      </if>
+      <if test="returnReason != null" >
+        return_reason,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="ext5 != null" >
+        ext5,
+      </if>
+      <if test="ext6 != null" >
+        ext6,
+      </if>
+      <if test="ext7 != null" >
+        ext7,
+      </if>
+      <if test="ext8 != null" >
+        ext8,
+      </if>
+      <if test="ext9 != null" >
+        ext9,
+      </if>
+      <if test="ext10 != null" >
+        ext10,
+      </if>
+      <if test="ext11 != null" >
+        ext11,
+      </if>
+      <if test="ext12 != null" >
+        ext12,
+      </if>
+      <if test="ext13 != null" >
+        ext13,
+      </if>
+      <if test="ext14 != null" >
+        ext14,
+      </if>
+      <if test="ext15 != null" >
+        ext15,
+      </if>
+      <if test="ext16 != null" >
+        ext16,
+      </if>
+      <if test="ext17 != null" >
+        ext17,
+      </if>
+      <if test="ext18 != null" >
+        ext18,
+      </if>
+      <if test="ext19 != null" >
+        ext19,
+      </if>
+      <if test="ext20 != null" >
+        ext20,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnNo != null" >
+        #{orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderReturnStatus != null" >
+        #{orderReturnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="purCompanyId != null" >
+        #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="purCompanyName != null" >
+        #{purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyId != null" >
+        #{supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyName != null" >
+        #{supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressReveiver != null" >
+        #{addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressPhone != null" >
+        #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null" >
+        #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnUserName != null" >
+        #{orderReturnUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnPhone != null" >
+        #{orderReturnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseOrderNo != null" >
+        #{purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="optionContract != null" >
+        #{optionContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemark != null" >
+        #{orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPriority != null" >
+        #{deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="returnOrderType != null" >
+        #{returnOrderType,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null" >
+        #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="productionNo != null" >
+        #{productionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null" >
+        #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="amountTotal != null" >
+        #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReduce != null" >
+        #{amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPay != null" >
+        #{amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presetReturnTime != null" >
+        #{presetReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnReason != null" >
+        #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="ext11 != null" >
+        #{ext11,jdbcType=VARCHAR},
+      </if>
+      <if test="ext12 != null" >
+        #{ext12,jdbcType=VARCHAR},
+      </if>
+      <if test="ext13 != null" >
+        #{ext13,jdbcType=VARCHAR},
+      </if>
+      <if test="ext14 != null" >
+        #{ext14,jdbcType=VARCHAR},
+      </if>
+      <if test="ext15 != null" >
+        #{ext15,jdbcType=VARCHAR},
+      </if>
+      <if test="ext16 != null" >
+        #{ext16,jdbcType=VARCHAR},
+      </if>
+      <if test="ext17 != null" >
+        #{ext17,jdbcType=VARCHAR},
+      </if>
+      <if test="ext18 != null" >
+        #{ext18,jdbcType=VARCHAR},
+      </if>
+      <if test="ext19 != null" >
+        #{ext19,jdbcType=VARCHAR},
+      </if>
+      <if test="ext20 != null" >
+        #{ext20,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.returned.entity.OrderReturnExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order_return
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderReturnNo != null" >
+        order_return_no = #{record.orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderReturnStatus != null" >
+        order_return_status = #{record.orderReturnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.purCompanyId != null" >
+        pur_company_id = #{record.purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purCompanyName != null" >
+        pur_company_name = #{record.purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supCompanyId != null" >
+        sup_company_id = #{record.supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supCompanyName != null" >
+        sup_company_name = #{record.supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addressReveiver != null" >
+        address_reveiver = #{record.addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressPhone != null" >
+        address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsNo != null" >
+        logistics_no = #{record.logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderReturnUserName != null" >
+        order_return_user_name = #{record.orderReturnUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderReturnPhone != null" >
+        order_return_phone = #{record.orderReturnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purchaseOrderNo != null" >
+        purchase_order_no = #{record.purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optionContract != null" >
+        option_contract = #{record.optionContract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNo != null" >
+        contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderRemark != null" >
+        order_remark = #{record.orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryPriority != null" >
+        delivery_priority = #{record.deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="record.returnOrderType != null" >
+        return_order_type = #{record.returnOrderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tax != null" >
+        tax = #{record.tax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paytype != null" >
+        payType = #{record.paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryType != null" >
+        delivery_type = #{record.deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="record.productionNo != null" >
+        production_no = #{record.productionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nums != null" >
+        nums = #{record.nums,jdbcType=INTEGER},
+      </if>
+      <if test="record.amountTotal != null" >
+        amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountReduce != null" >
+        amount_reduce = #{record.amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amountPay != null" >
+        amount_pay = #{record.amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.presetReturnTime != null" >
+        preset_return_time = #{record.presetReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.returnReason != null" >
+        return_reason = #{record.returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null" >
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext6 != null" >
+        ext6 = #{record.ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext7 != null" >
+        ext7 = #{record.ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext8 != null" >
+        ext8 = #{record.ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext9 != null" >
+        ext9 = #{record.ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext10 != null" >
+        ext10 = #{record.ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext11 != null" >
+        ext11 = #{record.ext11,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext12 != null" >
+        ext12 = #{record.ext12,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext13 != null" >
+        ext13 = #{record.ext13,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext14 != null" >
+        ext14 = #{record.ext14,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext15 != null" >
+        ext15 = #{record.ext15,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext16 != null" >
+        ext16 = #{record.ext16,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext17 != null" >
+        ext17 = #{record.ext17,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext18 != null" >
+        ext18 = #{record.ext18,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext19 != null" >
+        ext19 = #{record.ext19,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext20 != null" >
+        ext20 = #{record.ext20,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order_return
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      order_return_no = #{record.orderReturnNo,jdbcType=VARCHAR},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      order_return_status = #{record.orderReturnStatus,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      pur_company_id = #{record.purCompanyId,jdbcType=VARCHAR},
+      pur_company_name = #{record.purCompanyName,jdbcType=VARCHAR},
+      sup_company_id = #{record.supCompanyId,jdbcType=VARCHAR},
+      sup_company_name = #{record.supCompanyName,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      address_reveiver = #{record.addressReveiver,jdbcType=VARCHAR},
+      address_phone = #{record.addressPhone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      logistics_no = #{record.logisticsNo,jdbcType=VARCHAR},
+      order_return_user_name = #{record.orderReturnUserName,jdbcType=VARCHAR},
+      order_return_phone = #{record.orderReturnPhone,jdbcType=VARCHAR},
+      purchase_order_no = #{record.purchaseOrderNo,jdbcType=VARCHAR},
+      option_contract = #{record.optionContract,jdbcType=VARCHAR},
+      contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      order_remark = #{record.orderRemark,jdbcType=VARCHAR},
+      delivery_priority = #{record.deliveryPriority,jdbcType=INTEGER},
+      return_order_type = #{record.returnOrderType,jdbcType=VARCHAR},
+      tax = #{record.tax,jdbcType=DECIMAL},
+      area = #{record.area,jdbcType=VARCHAR},
+      payType = #{record.paytype,jdbcType=VARCHAR},
+      delivery_type = #{record.deliveryType,jdbcType=INTEGER},
+      production_no = #{record.productionNo,jdbcType=VARCHAR},
+      nums = #{record.nums,jdbcType=INTEGER},
+      amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      amount_reduce = #{record.amountReduce,jdbcType=DECIMAL},
+      amount_pay = #{record.amountPay,jdbcType=DECIMAL},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      preset_return_time = #{record.presetReturnTime,jdbcType=TIMESTAMP},
+      return_reason = #{record.returnReason,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      ext6 = #{record.ext6,jdbcType=VARCHAR},
+      ext7 = #{record.ext7,jdbcType=VARCHAR},
+      ext8 = #{record.ext8,jdbcType=VARCHAR},
+      ext9 = #{record.ext9,jdbcType=VARCHAR},
+      ext10 = #{record.ext10,jdbcType=VARCHAR},
+      ext11 = #{record.ext11,jdbcType=VARCHAR},
+      ext12 = #{record.ext12,jdbcType=VARCHAR},
+      ext13 = #{record.ext13,jdbcType=VARCHAR},
+      ext14 = #{record.ext14,jdbcType=VARCHAR},
+      ext15 = #{record.ext15,jdbcType=VARCHAR},
+      ext16 = #{record.ext16,jdbcType=VARCHAR},
+      ext17 = #{record.ext17,jdbcType=VARCHAR},
+      ext18 = #{record.ext18,jdbcType=VARCHAR},
+      ext19 = #{record.ext19,jdbcType=VARCHAR},
+      ext20 = #{record.ext20,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.returned.entity.OrderReturn" >
+    update t_order_return
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnNo != null" >
+        order_return_no = #{orderReturnNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderReturnStatus != null" >
+        order_return_status = #{orderReturnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="purCompanyId != null" >
+        pur_company_id = #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="purCompanyName != null" >
+        pur_company_name = #{purCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyId != null" >
+        sup_company_id = #{supCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="supCompanyName != null" >
+        sup_company_name = #{supCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressReveiver != null" >
+        address_reveiver = #{addressReveiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressPhone != null" >
+        address_phone = #{addressPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null" >
+        logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnUserName != null" >
+        order_return_user_name = #{orderReturnUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReturnPhone != null" >
+        order_return_phone = #{orderReturnPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseOrderNo != null" >
+        purchase_order_no = #{purchaseOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="optionContract != null" >
+        option_contract = #{optionContract,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemark != null" >
+        order_remark = #{orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPriority != null" >
+        delivery_priority = #{deliveryPriority,jdbcType=INTEGER},
+      </if>
+      <if test="returnOrderType != null" >
+        return_order_type = #{returnOrderType,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        payType = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryType != null" >
+        delivery_type = #{deliveryType,jdbcType=INTEGER},
+      </if>
+      <if test="productionNo != null" >
+        production_no = #{productionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nums != null" >
+        nums = #{nums,jdbcType=INTEGER},
+      </if>
+      <if test="amountTotal != null" >
+        amount_total = #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="amountReduce != null" >
+        amount_reduce = #{amountReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="amountPay != null" >
+        amount_pay = #{amountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presetReturnTime != null" >
+        preset_return_time = #{presetReturnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnReason != null" >
+        return_reason = #{returnReason,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6 = #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7 = #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8 = #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9 = #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10 = #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="ext11 != null" >
+        ext11 = #{ext11,jdbcType=VARCHAR},
+      </if>
+      <if test="ext12 != null" >
+        ext12 = #{ext12,jdbcType=VARCHAR},
+      </if>
+      <if test="ext13 != null" >
+        ext13 = #{ext13,jdbcType=VARCHAR},
+      </if>
+      <if test="ext14 != null" >
+        ext14 = #{ext14,jdbcType=VARCHAR},
+      </if>
+      <if test="ext15 != null" >
+        ext15 = #{ext15,jdbcType=VARCHAR},
+      </if>
+      <if test="ext16 != null" >
+        ext16 = #{ext16,jdbcType=VARCHAR},
+      </if>
+      <if test="ext17 != null" >
+        ext17 = #{ext17,jdbcType=VARCHAR},
+      </if>
+      <if test="ext18 != null" >
+        ext18 = #{ext18,jdbcType=VARCHAR},
+      </if>
+      <if test="ext19 != null" >
+        ext19 = #{ext19,jdbcType=VARCHAR},
+      </if>
+      <if test="ext20 != null" >
+        ext20 = #{ext20,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.returned.entity.OrderReturn" >
+    update t_order_return
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      order_return_no = #{orderReturnNo,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      order_return_status = #{orderReturnStatus,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      pur_company_id = #{purCompanyId,jdbcType=VARCHAR},
+      pur_company_name = #{purCompanyName,jdbcType=VARCHAR},
+      sup_company_id = #{supCompanyId,jdbcType=VARCHAR},
+      sup_company_name = #{supCompanyName,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      address_reveiver = #{addressReveiver,jdbcType=VARCHAR},
+      address_phone = #{addressPhone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      order_return_user_name = #{orderReturnUserName,jdbcType=VARCHAR},
+      order_return_phone = #{orderReturnPhone,jdbcType=VARCHAR},
+      purchase_order_no = #{purchaseOrderNo,jdbcType=VARCHAR},
+      option_contract = #{optionContract,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      order_remark = #{orderRemark,jdbcType=VARCHAR},
+      delivery_priority = #{deliveryPriority,jdbcType=INTEGER},
+      return_order_type = #{returnOrderType,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=DECIMAL},
+      area = #{area,jdbcType=VARCHAR},
+      payType = #{paytype,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=INTEGER},
+      production_no = #{productionNo,jdbcType=VARCHAR},
+      nums = #{nums,jdbcType=INTEGER},
+      amount_total = #{amountTotal,jdbcType=DECIMAL},
+      amount_reduce = #{amountReduce,jdbcType=DECIMAL},
+      amount_pay = #{amountPay,jdbcType=DECIMAL},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      preset_return_time = #{presetReturnTime,jdbcType=TIMESTAMP},
+      return_reason = #{returnReason,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      ext6 = #{ext6,jdbcType=VARCHAR},
+      ext7 = #{ext7,jdbcType=VARCHAR},
+      ext8 = #{ext8,jdbcType=VARCHAR},
+      ext9 = #{ext9,jdbcType=VARCHAR},
+      ext10 = #{ext10,jdbcType=VARCHAR},
+      ext11 = #{ext11,jdbcType=VARCHAR},
+      ext12 = #{ext12,jdbcType=VARCHAR},
+      ext13 = #{ext13,jdbcType=VARCHAR},
+      ext14 = #{ext14,jdbcType=VARCHAR},
+      ext15 = #{ext15,jdbcType=VARCHAR},
+      ext16 = #{ext16,jdbcType=VARCHAR},
+      ext17 = #{ext17,jdbcType=VARCHAR},
+      ext18 = #{ext18,jdbcType=VARCHAR},
+      ext19 = #{ext19,jdbcType=VARCHAR},
+      ext20 = #{ext20,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.returned.entity.OrderReturnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_return
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

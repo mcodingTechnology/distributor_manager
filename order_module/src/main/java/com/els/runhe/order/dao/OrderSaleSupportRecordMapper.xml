@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.order.dao.OrderSaleSupportRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.order.entity.OrderSaleSupportRecord" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PUR_COMPANY_ID" property="purCompanyId" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="VARCHAR" />
+    <result column="REFUND_MIN" property="refundMin" jdbcType="DECIMAL" />
+    <result column="REFUND_MAX" property="refundMax" jdbcType="DECIMAL" />
+    <result column="SUPPORT_RATE" property="supportRate" jdbcType="DECIMAL" />
+    <result column="ORDER_AMOUNT_PAY" property="orderAmountPay" jdbcType="DECIMAL" />
+    <result column="REFUND" property="refund" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PUR_COMPANY_ID, ORDER_ID, ORDER_NO, CONTRACT_ID, REFUND_MIN, REFUND_MAX, SUPPORT_RATE, 
+    ORDER_AMOUNT_PAY, REFUND, CREATE_TIME, TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_support_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_support_record
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_order_support_record
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecordExample" >
+    delete from t_order_support_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecord" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_order_support_record (ID, PUR_COMPANY_ID, ORDER_ID, 
+      ORDER_NO, CONTRACT_ID, REFUND_MIN, 
+      REFUND_MAX, SUPPORT_RATE, ORDER_AMOUNT_PAY, 
+      REFUND, CREATE_TIME, TYPE
+      )
+    values (#{_uuid}, #{purCompanyId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{contractId,jdbcType=VARCHAR}, #{refundMin,jdbcType=DECIMAL}, 
+      #{refundMax,jdbcType=DECIMAL}, #{supportRate,jdbcType=DECIMAL}, #{orderAmountPay,jdbcType=DECIMAL}, 
+      #{refund,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecord" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_order_support_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="purCompanyId != null" >
+        PUR_COMPANY_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="refundMin != null" >
+        REFUND_MIN,
+      </if>
+      <if test="refundMax != null" >
+        REFUND_MAX,
+      </if>
+      <if test="supportRate != null" >
+        SUPPORT_RATE,
+      </if>
+      <if test="orderAmountPay != null" >
+        ORDER_AMOUNT_PAY,
+      </if>
+      <if test="refund != null" >
+        REFUND,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{_uuid},
+      <if test="purCompanyId != null" >
+        #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMin != null" >
+        #{refundMin,jdbcType=DECIMAL},
+      </if>
+      <if test="refundMax != null" >
+        #{refundMax,jdbcType=DECIMAL},
+      </if>
+      <if test="supportRate != null" >
+        #{supportRate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmountPay != null" >
+        #{orderAmountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecordExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_support_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order_support_record
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purCompanyId != null" >
+        PUR_COMPANY_ID = #{record.purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        ORDER_ID = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractId != null" >
+        CONTRACT_ID = #{record.contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundMin != null" >
+        REFUND_MIN = #{record.refundMin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundMax != null" >
+        REFUND_MAX = #{record.refundMax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.supportRate != null" >
+        SUPPORT_RATE = #{record.supportRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderAmountPay != null" >
+        ORDER_AMOUNT_PAY = #{record.orderAmountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refund != null" >
+        REFUND = #{record.refund,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order_support_record
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PUR_COMPANY_ID = #{record.purCompanyId,jdbcType=VARCHAR},
+      ORDER_ID = #{record.orderId,jdbcType=VARCHAR},
+      ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      CONTRACT_ID = #{record.contractId,jdbcType=VARCHAR},
+      REFUND_MIN = #{record.refundMin,jdbcType=DECIMAL},
+      REFUND_MAX = #{record.refundMax,jdbcType=DECIMAL},
+      SUPPORT_RATE = #{record.supportRate,jdbcType=DECIMAL},
+      ORDER_AMOUNT_PAY = #{record.orderAmountPay,jdbcType=DECIMAL},
+      REFUND = #{record.refund,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      TYPE = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecord" >
+    update t_order_support_record
+    <set >
+      <if test="purCompanyId != null" >
+        PUR_COMPANY_ID = #{purCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractId != null" >
+        CONTRACT_ID = #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMin != null" >
+        REFUND_MIN = #{refundMin,jdbcType=DECIMAL},
+      </if>
+      <if test="refundMax != null" >
+        REFUND_MAX = #{refundMax,jdbcType=DECIMAL},
+      </if>
+      <if test="supportRate != null" >
+        SUPPORT_RATE = #{supportRate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmountPay != null" >
+        ORDER_AMOUNT_PAY = #{orderAmountPay,jdbcType=DECIMAL},
+      </if>
+      <if test="refund != null" >
+        REFUND = #{refund,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecord" >
+    update t_order_support_record
+    set PUR_COMPANY_ID = #{purCompanyId,jdbcType=VARCHAR},
+      ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      CONTRACT_ID = #{contractId,jdbcType=VARCHAR},
+      REFUND_MIN = #{refundMin,jdbcType=DECIMAL},
+      REFUND_MAX = #{refundMax,jdbcType=DECIMAL},
+      SUPPORT_RATE = #{supportRate,jdbcType=DECIMAL},
+      ORDER_AMOUNT_PAY = #{orderAmountPay,jdbcType=DECIMAL},
+      REFUND = #{refund,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      TYPE = #{type,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_support_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="sumRefundByExample" parameterType="com.els.runhe.order.entity.OrderSaleSupportRecordExample" resultType="java.math.BigDecimal" >
+    select sum(REFUND) from t_order_support_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

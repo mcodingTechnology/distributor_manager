@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.product.dao.productPrice.ProductPriceMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.product.entity.productPrice.ProductPrice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_bar_code" property="productBarCode" jdbcType="VARCHAR" />
+    <result column="product_unit" property="productUnit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="price_for_next_dealer" property="priceForNextDealer" jdbcType="DECIMAL" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="num_from" property="numFrom" jdbcType="INTEGER" />
+    <result column="num_to" property="numTo" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="price_extra" property="priceExtra" jdbcType="DECIMAL" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="limit_quantity" property="limitQuantity" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="expired_date" property="expiredDate" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="product_spec" property="productSpec" jdbcType="VARCHAR" />
+    <result column="number_code" property="numberCode" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, product_name, product_bar_code, product_unit, price, price_for_next_dealer, 
+    company_id, company_name, company_code, num_from, num_to, discount, price_extra, 
+    priority, limit_quantity, remark, valid_date, expired_date, create_time, update_time,product_spec,number_code,status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.product.entity.productPrice.ProductPriceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_product_price
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_product_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.product.entity.productPrice.ProductPriceExample" >
+    delete from t_product_price
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.product.entity.productPrice.ProductPrice" >
+    insert into t_product_price (id, product_id, product_name, 
+      product_bar_code, product_unit, price, 
+      price_for_next_dealer, company_id, company_name, 
+      company_code, num_from, num_to, 
+      discount, price_extra, priority, 
+      limit_quantity, remark, valid_date, 
+      expired_date, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productBarCode,jdbcType=VARCHAR}, #{productUnit,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{priceForNextDealer,jdbcType=DECIMAL}, #{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{numFrom,jdbcType=INTEGER}, #{numTo,jdbcType=INTEGER}, 
+      #{discount,jdbcType=DECIMAL}, #{priceExtra,jdbcType=DECIMAL}, #{priority,jdbcType=INTEGER}, 
+      #{limitQuantity,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{validDate,jdbcType=TIMESTAMP}, 
+      #{expiredDate,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.product.entity.productPrice.ProductPrice" >
+    insert into t_product_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productBarCode != null" >
+        product_bar_code,
+      </if>
+      <if test="productUnit != null" >
+        product_unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="priceForNextDealer != null" >
+        price_for_next_dealer,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="numFrom != null" >
+        num_from,
+      </if>
+      <if test="numTo != null" >
+        num_to,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="priceExtra != null" >
+        price_extra,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="limitQuantity != null" >
+        limit_quantity,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="expiredDate != null" >
+        expired_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="productSpec != null" >
+        product_spec,
+      </if>
+      <if test="numberCode != null" >
+        number_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBarCode != null" >
+        #{productBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnit != null" >
+        #{productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="priceForNextDealer != null" >
+        #{priceForNextDealer,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="numFrom != null" >
+        #{numFrom,jdbcType=INTEGER},
+      </if>
+      <if test="numTo != null" >
+        #{numTo,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceExtra != null" >
+        #{priceExtra,jdbcType=DECIMAL},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="limitQuantity != null" >
+        #{limitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiredDate != null" >
+        #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productSpec != null" >
+        #{productSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="numberCode != null" >
+        #{numberCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.product.entity.productPrice.ProductPriceExample" resultType="java.lang.Integer" >
+    select count(*) from t_product_price
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_product_price
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productBarCode != null" >
+        product_bar_code = #{record.productBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productUnit != null" >
+        product_unit = #{record.productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priceForNextDealer != null" >
+        price_for_next_dealer = #{record.priceForNextDealer,jdbcType=DECIMAL},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyCode != null" >
+        company_code = #{record.companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numFrom != null" >
+        num_from = #{record.numFrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.numTo != null" >
+        num_to = #{record.numTo,jdbcType=INTEGER},
+      </if>
+      <if test="record.discount != null" >
+        discount = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priceExtra != null" >
+        price_extra = #{record.priceExtra,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.limitQuantity != null" >
+        limit_quantity = #{record.limitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validDate != null" >
+        valid_date = #{record.validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expiredDate != null" >
+        expired_date = #{record.expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_product_price
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_bar_code = #{record.productBarCode,jdbcType=VARCHAR},
+      product_unit = #{record.productUnit,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      price_for_next_dealer = #{record.priceForNextDealer,jdbcType=DECIMAL},
+      company_id = #{record.companyId,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_code = #{record.companyCode,jdbcType=VARCHAR},
+      num_from = #{record.numFrom,jdbcType=INTEGER},
+      num_to = #{record.numTo,jdbcType=INTEGER},
+      discount = #{record.discount,jdbcType=DECIMAL},
+      price_extra = #{record.priceExtra,jdbcType=DECIMAL},
+      priority = #{record.priority,jdbcType=INTEGER},
+      limit_quantity = #{record.limitQuantity,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      valid_date = #{record.validDate,jdbcType=TIMESTAMP},
+      expired_date = #{record.expiredDate,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.product.entity.productPrice.ProductPrice" >
+    update t_product_price
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBarCode != null" >
+        product_bar_code = #{productBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnit != null" >
+        product_unit = #{productUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="priceForNextDealer != null" >
+        price_for_next_dealer = #{priceForNextDealer,jdbcType=DECIMAL},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="numFrom != null" >
+        num_from = #{numFrom,jdbcType=INTEGER},
+      </if>
+      <if test="numTo != null" >
+        num_to = #{numTo,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="priceExtra != null" >
+        price_extra = #{priceExtra,jdbcType=DECIMAL},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="limitQuantity != null" >
+        limit_quantity = #{limitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiredDate != null" >
+        expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.product.entity.productPrice.ProductPrice" >
+    update t_product_price
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_bar_code = #{productBarCode,jdbcType=VARCHAR},
+      product_unit = #{productUnit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      price_for_next_dealer = #{priceForNextDealer,jdbcType=DECIMAL},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      num_from = #{numFrom,jdbcType=INTEGER},
+      num_to = #{numTo,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=DECIMAL},
+      price_extra = #{priceExtra,jdbcType=DECIMAL},
+      priority = #{priority,jdbcType=INTEGER},
+      limit_quantity = #{limitQuantity,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      valid_date = #{validDate,jdbcType=TIMESTAMP},
+      expired_date = #{expiredDate,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.product.entity.productPrice.ProductPriceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_product_price
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

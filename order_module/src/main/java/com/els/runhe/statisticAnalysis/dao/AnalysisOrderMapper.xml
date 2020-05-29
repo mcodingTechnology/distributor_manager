@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.statisticAnalysis.dao.AnalysisOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.statisticAnalysis.entity.AnalysisOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="amount_total" property="amountTotal" jdbcType="DECIMAL" />
+    <result column="paid" property="paid" jdbcType="DECIMAL" />
+    <result column="unpaid" property="unpaid" jdbcType="DECIMAL" />
+    <result column="audit_states" property="auditStates" jdbcType="INTEGER" />
+    <result column="account_bill_states" property="accountBillStates" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="no_submit_total" property="noSubmitTotal" jdbcType="DECIMAL" />
+    <result column="cancel_submit_total" property="cancelSubmitTotal" jdbcType="DECIMAL" />
+    <result column="no_pay_total" property="noPayTotal" jdbcType="DECIMAL" />
+    <result column="refused_total" property="refusedTotal" jdbcType="DECIMAL" />
+    <result column="no_approval_total" property="noApprovalTotal" jdbcType="DECIMAL" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, company_id, company_name, IFNULL(amount_total,0) amount_total, audit_states, account_bill_states, order_time, 
+    create_time, update_time, 
+		(select IFNULL(sum(pay_amount),0) from t_analysis_finance_log log 
+						where log.company_id = t_analysis_order.company_id
+						AND DATE_FORMAT(log.pay_time,'%Y-%m') = t_analysis_order.order_time
+		) paid, 
+		no_submit_total, cancel_submit_total, no_pay_total, refused_total, no_approval_total
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_analysis_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_analysis_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_analysis_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrderExample" >
+    delete from t_analysis_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_analysis_order (company_id, company_name, amount_total, 
+      paid, unpaid, audit_states, 
+      account_bill_states, order_time, create_time, update_time
+      )
+    values (#{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{amountTotal,jdbcType=DECIMAL}, 
+      #{paid,jdbcType=DECIMAL}, #{unpaid,jdbcType=DECIMAL}, #{auditStates,jdbcType=INTEGER}, 
+      #{accountBillStates,jdbcType=INTEGER}, #{orderTime}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_analysis_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="amountTotal != null" >
+        amount_total,
+      </if>
+      <if test="paid != null" >
+        paid,
+      </if>
+      <if test="unpaid != null" >
+        unpaid,
+      </if>
+      <if test="auditStates != null" >
+        audit_states,
+      </if>
+      <if test="accountBillStates != null" >
+        account_bill_states,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paid != null" >
+        #{paid,jdbcType=DECIMAL},
+      </if>
+      <if test="unpaid != null" >
+        #{unpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStates != null" >
+        #{auditStates,jdbcType=INTEGER},
+      </if>
+      <if test="accountBillStates != null" >
+        #{accountBillStates,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_analysis_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_analysis_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountTotal != null" >
+        amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paid != null" >
+        paid = #{record.paid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unpaid != null" >
+        unpaid = #{record.unpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.auditStates != null" >
+        audit_states = #{record.auditStates,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountBillStates != null" >
+        account_bill_states = #{record.accountBillStates,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_analysis_order
+    set id = #{record.id,jdbcType=INTEGER},
+      company_id = #{record.companyId,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      paid = #{record.paid,jdbcType=DECIMAL},
+      unpaid = #{record.unpaid,jdbcType=DECIMAL},
+      audit_states = #{record.auditStates,jdbcType=INTEGER},
+      account_bill_states = #{record.accountBillStates,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrder" >
+    update t_analysis_order
+    <set >
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        amount_total = #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="paid != null" >
+        paid = #{paid,jdbcType=DECIMAL},
+      </if>
+      <if test="unpaid != null" >
+        unpaid = #{unpaid,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStates != null" >
+        audit_states = #{auditStates,jdbcType=INTEGER},
+      </if>
+      <if test="accountBillStates != null" >
+        account_bill_states = #{accountBillStates,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrder" >
+    update t_analysis_order
+    set company_id = #{companyId,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      amount_total = #{amountTotal,jdbcType=DECIMAL},
+      paid = #{paid,jdbcType=DECIMAL},
+      unpaid = #{unpaid,jdbcType=DECIMAL},
+      audit_states = #{auditStates,jdbcType=INTEGER},
+      account_bill_states = #{accountBillStates,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.statisticAnalysis.entity.AnalysisOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_analysis_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectMonthReport" resultMap="BaseResultMap" >
+	select
+		top.company_id company_id,
+		(select c.COMPANY_FULL_NAME from t_base_company c where c.id = top.company_id ) company_name, 
+		SUM(top.amount_total) amount_total,
+		(select
+			SUM(p.amount_total) total
+			from t_order o,
+			t_order_product p
+			WHERE o.id = p.order_id
+			AND p.company_id = top.company_id
+			AND DATE_FORMAT(o.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+			AND o.status = '100'
+		) no_submit_total,
+		(select
+			SUM(p.amount_total) total
+			from t_order o,
+			t_order_product p
+			WHERE o.id = p.order_id
+			AND p.company_id = top.company_id
+			AND DATE_FORMAT(o.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+			AND o.status = '600'
+		) cancel_submit_total,
+		(select
+			SUM(p.amount_total) total
+			from t_order o,
+			t_order_product p
+			WHERE o.id = p.order_id
+			AND p.company_id = top.company_id
+			AND DATE_FORMAT(o.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+			AND o.status = '200' AND o.approval_status = '100'
+		) no_approval_total, 
+		(select
+			SUM(p.amount_total) total
+			from t_order o,
+			t_order_product p
+			WHERE o.id = p.order_id
+			AND p.company_id = top.company_id
+			AND DATE_FORMAT(o.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+			AND o.status = '200' AND o.approval_status = '150'
+		) no_pay_total, 
+		(select
+			SUM(p.amount_total) total
+			from t_order o,
+			t_order_product p
+			WHERE o.id = p.order_id
+			AND p.company_id = top.company_id
+			AND DATE_FORMAT(o.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+			AND o.status = '200' AND o.approval_status = '300'
+		) refused_total
+    from t_order tos,
+		t_order_product top,
+		t_base_company tbc
+    WHERE tos.id = top.order_id
+		AND top.company_id = tbc.id 
+    	AND DATE_FORMAT(tos.add_time,'%Y-%m') = DATE_FORMAT(now(),'%Y-%m') 
+		GROUP BY top.company_id
+  </select>
+  
+  <delete id="deleteByOrderTime" >
+    delete from t_analysis_order
+    where order_time = DATE_FORMAT(now(),'%Y-%m') 
+  </delete>
+  
+  <insert id="saveAnalysisOrder" parameterType="java.util.List">
+	        INSERT INTO t_analysis_order (
+		        	company_id, company_name, amount_total, 
+      				audit_states, account_bill_states, order_time, create_time, update_time, 
+      				no_submit_total, cancel_submit_total, no_pay_total, refused_total, no_approval_total
+	        ) VALUES 
+	        <foreach collection="list" item="item" index="index" separator=",">
+            (
+	            #{item.companyId,jdbcType=VARCHAR}, #{item.companyName,jdbcType=VARCHAR}, #{item.amountTotal,jdbcType=DECIMAL}, 
+      			#{item.auditStates,jdbcType=INTEGER}, 
+      			#{item.accountBillStates,jdbcType=INTEGER}, #{item.orderTime}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+      			#{item.noSubmitTotal,jdbcType=DECIMAL}, #{item.cancelSubmitTotal,jdbcType=DECIMAL}, #{item.noPayTotal,jdbcType=DECIMAL}, 
+      			#{item.refusedTotal,jdbcType=DECIMAL}, #{item.noApprovalTotal,jdbcType=DECIMAL}  
+            )
+        </foreach>
+	</insert>
+</mapper>

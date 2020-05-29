@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.els.base</groupId>
+		<artifactId>base_parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.els.runhe</groupId>
+	<artifactId>runhe_project</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<com.els.base>1.0.0-SNAPSHOT</com.els.base>
+		<com.els.runhe>0.0.1-SNAPSHOT</com.els.runhe>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>cms_module</module>
+		<module>product_module</module>
+		<module>distributor_module</module>
+		<module>warehouse_module</module>
+		<module>contract_module</module>
+		<module>order_module</module>
+		<module>market_module</module>
+		<module>member_module</module>
+	</modules>
+</project>

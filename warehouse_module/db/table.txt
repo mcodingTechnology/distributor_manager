@@ -1,0 +1,3 @@
+alter table `T_STOCK_WAREHOUSE` add `CREATE_TIME` datetime default current_timestamp comment '创建时间';
+alter table `T_STOCK_WAREHOUSE` add `UPDATE_TIME` datetime default null comment '更新时间';
+alter table `T_STOCK_WAREHOUSE` add `IS_ENABLE` int(11) default '1' comment '是否启用：1启用，0禁用';

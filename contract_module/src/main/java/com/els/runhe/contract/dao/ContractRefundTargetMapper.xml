@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.contract.dao.ContractRefundTargetMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.contract.entity.ContractRefundTarget" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CONTRACT_ID" property="contractId" jdbcType="VARCHAR" />
+    <result column="YEAR" property="year" jdbcType="INTEGER" />
+    <result column="MONTH" property="month" jdbcType="INTEGER" />
+    <result column="YEAR_REFUND_TARGET" property="yearRefundTarget" jdbcType="DOUBLE" />
+    <result column="MONTH_REFUND_TARGET" property="monthRefundTarget" jdbcType="DOUBLE" />
+    <result column="MONTH_REFUND_PROPORTION" property="monthRefundProportion" jdbcType="DOUBLE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CONTRACT_ID, YEAR, MONTH, YEAR_REFUND_TARGET, MONTH_REFUND_TARGET, MONTH_REFUND_PROPORTION, CREATE_TIME, 
+    UPDATE_TIME, IS_ENABLE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.contract.entity.ContractRefundTargetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_contract_refund_target
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_contract_refund_target
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_contract_refund_target
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.contract.entity.ContractRefundTargetExample" >
+    delete from t_contract_refund_target
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.contract.entity.ContractRefundTarget" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_contract_refund_target (ID, CONTRACT_ID, YEAR, MONTH, 
+      YEAR_REFUND_TARGET, MONTH_REFUND_TARGET, MONTH_REFUND_PROPORTION, CREATE_TIME, 
+      UPDATE_TIME, IS_ENABLE)
+    values (#{_uuid}, #{contractId,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, #{month,jdbcType=INTEGER}, 
+      #{yearRefundTarget,jdbcType=DOUBLE}, #{monthRefundTarget,jdbcType=DOUBLE}, #{monthRefundProportion,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.contract.entity.ContractRefundTarget" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_contract_refund_target
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="contractId != null" >
+        CONTRACT_ID,
+      </if>
+      <if test="year != null" >
+        YEAR,
+      </if>
+      <if test="month != null" >
+        MONTH,
+      </if>
+      <if test="yearRefundTarget != null" >
+        YEAR_REFUND_TARGET,
+      </if>
+      <if test="monthRefundTarget != null" >
+        MONTH_REFUND_TARGET,
+      </if>
+      <if test="monthRefundProportion != null" >
+        MONTH_REFUND_PROPORTION,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{_uuid},
+      <if test="contractId != null" >
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=INTEGER},
+      </if>
+      <if test="yearRefundTarget != null" >
+        #{yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="monthRefundTarget != null" >
+        #{monthRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="monthRefundProportion != null" >
+        #{monthRefundProportion,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.contract.entity.ContractRefundTargetExample" resultType="java.lang.Integer" >
+    select count(*) from t_contract_refund_target
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_contract_refund_target
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractId != null" >
+        CONTRACT_ID = #{record.contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        YEAR = #{record.year,jdbcType=INTEGER},
+      </if>
+      <if test="record.month != null" >
+        MONTH = #{record.month,jdbcType=INTEGER},
+      </if>
+      <if test="record.yearRefundTarget != null" >
+        YEAR_REFUND_TARGET = #{record.yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="record.monthRefundTarget != null" >
+        MONTH_REFUND_TARGET = #{record.monthRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="record.monthRefundProportion != null" >
+        MONTH_REFUND_PROPORTION = #{record.monthRefundProportion,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        IS_ENABLE = #{record.isEnable,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_contract_refund_target
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CONTRACT_ID = #{record.contractId,jdbcType=VARCHAR},
+      YEAR = #{record.year,jdbcType=INTEGER},
+      MONTH = #{record.month,jdbcType=INTEGER},
+      YEAR_REFUND_TARGET = #{record.yearRefundTarget,jdbcType=DOUBLE},
+      MONTH_REFUND_TARGET = #{record.monthRefundTarget,jdbcType=DOUBLE},
+      MONTH_REFUND_PROPORTION = #{record.monthRefundProportion,jdbcType=DOUBLE},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{record.isEnable,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.contract.entity.ContractRefundTarget" >
+    update t_contract_refund_target
+    <set >
+      <if test="contractId != null" >
+        CONTRACT_ID = #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        YEAR = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="month != null" >
+        MONTH = #{month,jdbcType=INTEGER},
+      </if>
+      <if test="yearRefundTarget != null" >
+        YEAR_REFUND_TARGET = #{yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="monthRefundTarget != null" >
+        MONTH_REFUND_TARGET = #{monthRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="monthRefundProportion != null" >
+        MONTH_REFUND_PROPORTION = #{monthRefundProportion,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE = #{isEnable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.contract.entity.ContractRefundTarget" >
+    update t_contract_refund_target
+    set CONTRACT_ID = #{contractId,jdbcType=VARCHAR},
+      YEAR = #{year,jdbcType=INTEGER},
+      MONTH = #{month,jdbcType=INTEGER},
+      YEAR_REFUND_TARGET = #{yearRefundTarget,jdbcType=DOUBLE},
+      MONTH_REFUND_TARGET = #{monthRefundTarget,jdbcType=DOUBLE},
+      MONTH_REFUND_PROPORTION = #{monthRefundProportion,jdbcType=DOUBLE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{isEnable,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.contract.entity.ContractRefundTargetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_contract_refund_target
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

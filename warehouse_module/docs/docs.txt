@@ -1,0 +1,31 @@
+http://www.nensahealth.com/login.html
+admin
+adminls
+
+SOP=Sales Operation Platform 营销运营平台
+
+http://119.23.132.137:10080/server/distributor_manager
+润禾项目的的代码放到以上地址
+
+tomcat 部署在186的目录：
+/mnt/local/tomcat/apache-tomcat-7.0.67-runhe/
+
+域名： 
+http://runhe.beta.51qqt.com/
+http://omp.mcoding.cn
+
+http://runhe.beta.51qqt.com/swagger/
+http://omp.mcoding.cn/swagger/
+
+ssh://git@119.23.132.137:10022/server/distributor_manager.git
+http://119.23.132.137:10080/server/distributor_manager.git
+
+http://localhost:8080/distributor_module
+
+http://localhost:8080/distributor_module/loginForSpringSecurity?username=admin&password=123456
+
+http://localhost:8080/distributor_module/warehouse/service/findByPage
+http://localhost:8080/distributor_module/stock/service/findByPage
+
+http://120.78.22.116:25280/distributor_module/
+http://120.78.22.116:25280/swagger/

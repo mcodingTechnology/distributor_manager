@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.market.dao.design.MarketDesignApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.market.entity.design.MarketDesignApply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="design_apply_id" property="designApplyId" jdbcType="VARCHAR" />
+    <result column="theme_id" property="themeId" jdbcType="VARCHAR" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="entrust_company" property="entrustCompany" jdbcType="VARCHAR" />
+    <result column="entrust_id" property="entrustId" jdbcType="VARCHAR" />
+    <result column="entrust_name" property="entrustName" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="expect_complete_time" property="expectCompleteTime" jdbcType="TIMESTAMP" />
+    <result column="design_description" property="designDescription" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="atta_id" property="attaId" jdbcType="VARCHAR" />
+    <result column="atta_name" property="attaName" jdbcType="VARCHAR" />
+    <result column="atta_url" property="attaUrl" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+    <result column="ext5" property="ext5" jdbcType="VARCHAR" />
+    <result column="ext6" property="ext6" jdbcType="VARCHAR" />
+    <result column="ext7" property="ext7" jdbcType="VARCHAR" />
+    <result column="ext8" property="ext8" jdbcType="VARCHAR" />
+    <result column="ext9" property="ext9" jdbcType="VARCHAR" />
+    <result column="ext10" property="ext10" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, status, approval_status, design_apply_id, theme_id, theme, entrust_company, entrust_id, entrust_name, contact_phone, qq, 
+    add_time, expect_complete_time, design_description, remark, atta_id, atta_name, atta_url, ext1, ext2, ext3, ext4, 
+    ext5, ext6, ext7, ext8, ext9, ext10, create_time, creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.design.MarketDesignApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_design_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_design_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByDesignApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_market_design_apply
+    where design_apply_id = #{designApplyId,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update t_market_design_apply set status = '5'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByExample" parameterType="com.els.runhe.market.entity.design.MarketDesignApplyExample" >
+    delete from t_market_design_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.market.entity.design.MarketDesignApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_design_apply (user_id, user_name, status, approval_status, design_apply_id, theme_id, theme, entrust_company, 
+      entrust_id, entrust_name, contact_phone, 
+      qq, add_time, expect_complete_time, 
+      design_description, remark, atta_id, 
+      atta_name, atta_url, ext1, 
+      ext2, ext3, ext4, ext5, 
+      ext6, ext7, ext8, ext9, 
+      ext10, create_time, creater, 
+      update_time, updater)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{approvalStatus,jdbcType=INTEGER},
+      #{designApplyId,jdbcType=VARCHAR},#{themeId,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, #{entrustCompany,jdbcType=VARCHAR}, 
+      #{entrustId,jdbcType=VARCHAR}, #{entrustName,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, #{expectCompleteTime,jdbcType=TIMESTAMP}, 
+      #{designDescription,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{attaId,jdbcType=VARCHAR}, 
+      #{attaName,jdbcType=VARCHAR}, #{attaUrl,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}, 
+      #{ext6,jdbcType=VARCHAR}, #{ext7,jdbcType=VARCHAR}, #{ext8,jdbcType=VARCHAR}, #{ext9,jdbcType=VARCHAR}, 
+      #{ext10,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.market.entity.design.MarketDesignApply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_market_design_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="designApplyId != null" >
+        design_apply_id,
+      </if>
+      <if test="themeId != null" >
+        theme_id,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="entrustCompany != null" >
+        entrust_company,
+      </if>
+      <if test="entrustId != null" >
+        entrust_id,
+      </if>
+      <if test="entrustName != null" >
+        entrust_name,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="expectCompleteTime != null" >
+        expect_complete_time,
+      </if>
+      <if test="designDescription != null" >
+        design_description,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="attaId != null" >
+        atta_id,
+      </if>
+      <if test="attaName != null" >
+        atta_name,
+      </if>
+      <if test="attaUrl != null" >
+        atta_url,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="ext5 != null" >
+        ext5,
+      </if>
+      <if test="ext6 != null" >
+        ext6,
+      </if>
+      <if test="ext7 != null" >
+        ext7,
+      </if>
+      <if test="ext8 != null" >
+        ext8,
+      </if>
+      <if test="ext9 != null" >
+        ext9,
+      </if>
+      <if test="ext10 != null" >
+        ext10,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="designApplyId != null" >
+        #{designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null" >
+        #{themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustCompany != null" >
+        #{entrustCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustId != null" >
+        #{entrustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustName != null" >
+        #{entrustName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expectCompleteTime != null" >
+        #{expectCompleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designDescription != null" >
+        #{designDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="attaId != null" >
+        #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.market.entity.design.MarketDesignApplyExample" resultType="java.lang.Integer" >
+    select count(*) from t_market_design_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_market_design_apply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.designApplyId != null" >
+        design_apply_id = #{record.designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.themeId != null" >
+        theme_id = #{record.themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theme != null" >
+        theme = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrustCompany != null" >
+        entrust_company = #{record.entrustCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrustId != null" >
+        entrust_id = #{record.entrustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrustName != null" >
+        entrust_name = #{record.entrustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactPhone != null" >
+        contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expectCompleteTime != null" >
+        expect_complete_time = #{record.expectCompleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.designDescription != null" >
+        design_description = #{record.designDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaId != null" >
+        atta_id = #{record.attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaName != null" >
+        atta_name = #{record.attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaUrl != null" >
+        atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext5 != null" >
+        ext5 = #{record.ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext6 != null" >
+        ext6 = #{record.ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext7 != null" >
+        ext7 = #{record.ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext8 != null" >
+        ext8 = #{record.ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext9 != null" >
+        ext9 = #{record.ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext10 != null" >
+        ext10 = #{record.ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_market_design_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      approval_status = #{record.approvalStatus,jdbcType=INTEGER},
+      design_apply_id = #{record.designApplyId,jdbcType=VARCHAR},
+      theme_id = #{record.themeId,jdbcType=VARCHAR},
+      theme = #{record.theme,jdbcType=VARCHAR},
+      entrust_company = #{record.entrustCompany,jdbcType=VARCHAR},
+      entrust_id = #{record.entrustId,jdbcType=VARCHAR},
+      entrust_name = #{record.entrustName,jdbcType=VARCHAR},
+      contact_phone = #{record.contactPhone,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      expect_complete_time = #{record.expectCompleteTime,jdbcType=TIMESTAMP},
+      design_description = #{record.designDescription,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      atta_id = #{record.attaId,jdbcType=VARCHAR},
+      atta_name = #{record.attaName,jdbcType=VARCHAR},
+      atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      ext5 = #{record.ext5,jdbcType=VARCHAR},
+      ext6 = #{record.ext6,jdbcType=VARCHAR},
+      ext7 = #{record.ext7,jdbcType=VARCHAR},
+      ext8 = #{record.ext8,jdbcType=VARCHAR},
+      ext9 = #{record.ext9,jdbcType=VARCHAR},
+      ext10 = #{record.ext10,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.market.entity.design.MarketDesignApply" >
+    update t_market_design_apply
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="designApplyId != null" >
+        design_apply_id = #{designApplyId,jdbcType=VARCHAR},
+      </if>
+      <if test="themeId != null" >
+        theme_id = #{themeId,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustCompany != null" >
+        entrust_company = #{entrustCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustId != null" >
+        entrust_id = #{entrustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustName != null" >
+        entrust_name = #{entrustName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expectCompleteTime != null" >
+        expect_complete_time = #{expectCompleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designDescription != null" >
+        design_description = #{designDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="attaId != null" >
+        atta_id = #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        atta_name = #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        atta_url = #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="ext5 != null" >
+        ext5 = #{ext5,jdbcType=VARCHAR},
+      </if>
+      <if test="ext6 != null" >
+        ext6 = #{ext6,jdbcType=VARCHAR},
+      </if>
+      <if test="ext7 != null" >
+        ext7 = #{ext7,jdbcType=VARCHAR},
+      </if>
+      <if test="ext8 != null" >
+        ext8 = #{ext8,jdbcType=VARCHAR},
+      </if>
+      <if test="ext9 != null" >
+        ext9 = #{ext9,jdbcType=VARCHAR},
+      </if>
+      <if test="ext10 != null" >
+        ext10 = #{ext10,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.market.entity.design.MarketDesignApply" >
+    update t_market_design_apply
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      approval_status = #{approvalStatus,jdbcType=INTEGER},
+      design_apply_id = #{designApplyId,jdbcType=VARCHAR},
+      theme_id = #{themeId,jdbcType=VARCHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      entrust_company = #{entrustCompany,jdbcType=VARCHAR},
+      entrust_id = #{entrustId,jdbcType=VARCHAR},
+      entrust_name = #{entrustName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      expect_complete_time = #{expectCompleteTime,jdbcType=TIMESTAMP},
+      design_description = #{designDescription,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      atta_id = #{attaId,jdbcType=VARCHAR},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_url = #{attaUrl,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      ext5 = #{ext5,jdbcType=VARCHAR},
+      ext6 = #{ext6,jdbcType=VARCHAR},
+      ext7 = #{ext7,jdbcType=VARCHAR},
+      ext8 = #{ext8,jdbcType=VARCHAR},
+      ext9 = #{ext9,jdbcType=VARCHAR},
+      ext10 = #{ext10,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.design.MarketDesignApplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_market_design_apply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

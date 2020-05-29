@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.market.dao.promotional.PromotionalCostProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.market.entity.promotional.PromotionalCostProject" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="promotional_cost_no" property="promotionalCostNo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="line" property="line" jdbcType="VARCHAR" />
+    <result column="amount_total" property="amountTotal" jdbcType="DECIMAL" />
+    <result column="sale_cost" property="saleCost" jdbcType="DECIMAL" />
+    <result column="sale_proport" property="saleProport" jdbcType="DECIMAL" />
+    <result column="sale_project" property="saleProject" jdbcType="VARCHAR" />
+    <result column="sale_amount" property="saleAmount" jdbcType="DECIMAL" />
+    <result column="our_cost" property="ourCost" jdbcType="DECIMAL" />
+    <result column="our_proport" property="ourProport" jdbcType="DECIMAL" />
+    <result column="our_project" property="ourProject" jdbcType="VARCHAR" />
+    <result column="our_amount" property="ourAmount" jdbcType="DECIMAL" />
+    <result column="atta_id" property="attaId" jdbcType="VARCHAR" />
+    <result column="atta_name" property="attaName" jdbcType="VARCHAR" />
+    <result column="atta_url" property="attaUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, promotional_cost_no, type, line, amount_total, sale_cost, sale_proport, sale_project, sale_amount, 
+    our_cost, our_proport, our_project, our_amount, atta_id, atta_name, atta_url, create_time, 
+    creater, update_time, updater
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_promotional_cost_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProjectExample" >
+    delete from t_promotional_cost_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProject" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_promotional_cost_project (promotional_cost_no, type, line, amount_total,
+      sale_cost, sale_proport, sale_project, 
+      sale_amount, our_cost, our_proport, 
+      our_project, our_amount, atta_id, 
+      atta_name, atta_url, create_time, 
+      creater, update_time, updater
+      )
+    values (#{promotionalCostNo,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{line,jdbcType=VARCHAR}, #{amountTotal,jdbcType=DECIMAL}, 
+      #{saleCost,jdbcType=DECIMAL}, #{saleProport,jdbcType=DECIMAL}, #{saleProject,jdbcType=VARCHAR}, 
+      #{saleAmount,jdbcType=DECIMAL}, #{ourCost,jdbcType=DECIMAL}, #{ourProport,jdbcType=DECIMAL}, 
+      #{ourProject,jdbcType=VARCHAR}, #{ourAmount,jdbcType=DECIMAL}, #{attaId,jdbcType=VARCHAR}, 
+      #{attaName,jdbcType=VARCHAR}, #{attaUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProject" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_promotional_cost_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="promotionalCostNo != null" >
+        promotional_cost_no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="line != null" >
+        line,
+      </if>
+      <if test="amountTotal != null" >
+        amount_total,
+      </if>
+      <if test="saleCost != null" >
+        sale_cost,
+      </if>
+      <if test="saleProport != null" >
+        sale_proport,
+      </if>
+      <if test="saleProject != null" >
+        sale_project,
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount,
+      </if>
+      <if test="ourCost != null" >
+        our_cost,
+      </if>
+      <if test="ourProport != null" >
+        our_proport,
+      </if>
+      <if test="ourProject != null" >
+        our_project,
+      </if>
+      <if test="ourAmount != null" >
+        our_amount,
+      </if>
+      <if test="attaId != null" >
+        atta_id,
+      </if>
+      <if test="attaName != null" >
+        atta_name,
+      </if>
+      <if test="attaUrl != null" >
+        atta_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="promotionalCostNo != null" >
+        #{promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        #{line,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="saleCost != null" >
+        #{saleCost,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProport != null" >
+        #{saleProport,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProject != null" >
+        #{saleProject,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAmount != null" >
+        #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ourCost != null" >
+        #{ourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="ourProport != null" >
+        #{ourProport,jdbcType=DECIMAL},
+      </if>
+      <if test="ourProject != null" >
+        #{ourProject,jdbcType=VARCHAR},
+      </if>
+      <if test="ourAmount != null" >
+        #{ourAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="attaId != null" >
+        #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProjectExample" resultType="java.lang.Integer" >
+    select count(*) from t_promotional_cost_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_promotional_cost_project
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.promotionalCostNo != null" >
+        promotional_cost_no = #{record.promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.line != null" >
+        line = #{record.line,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountTotal != null" >
+        amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleCost != null" >
+        sale_cost = #{record.saleCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProport != null" >
+        sale_proport = #{record.saleProport,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProject != null" >
+        sale_project = #{record.saleProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleAmount != null" >
+        sale_amount = #{record.saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ourCost != null" >
+        our_cost = #{record.ourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ourProport != null" >
+        our_proport = #{record.ourProport,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ourProject != null" >
+        our_project = #{record.ourProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ourAmount != null" >
+        our_amount = #{record.ourAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attaId != null" >
+        atta_id = #{record.attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaName != null" >
+        atta_name = #{record.attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attaUrl != null" >
+        atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null" >
+        updater = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_promotional_cost_project
+    set id = #{record.id,jdbcType=INTEGER},
+      promotional_cost_no = #{record.promotionalCostNo,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      line = #{record.line,jdbcType=VARCHAR},
+      amount_total = #{record.amountTotal,jdbcType=DECIMAL},
+      sale_cost = #{record.saleCost,jdbcType=DECIMAL},
+      sale_proport = #{record.saleProport,jdbcType=DECIMAL},
+      sale_project = #{record.saleProject,jdbcType=VARCHAR},
+      sale_amount = #{record.saleAmount,jdbcType=DECIMAL},
+      our_cost = #{record.ourCost,jdbcType=DECIMAL},
+      our_proport = #{record.ourProport,jdbcType=DECIMAL},
+      our_project = #{record.ourProject,jdbcType=VARCHAR},
+      our_amount = #{record.ourAmount,jdbcType=DECIMAL},
+      atta_id = #{record.attaId,jdbcType=VARCHAR},
+      atta_name = #{record.attaName,jdbcType=VARCHAR},
+      atta_url = #{record.attaUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      updater = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProject" >
+    update t_promotional_cost_project
+    <set >
+      <if test="promotionalCostNo != null" >
+        promotional_cost_no = #{promotionalCostNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="line != null" >
+        line = #{line,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotal != null" >
+        amount_total = #{amountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="saleCost != null" >
+        sale_cost = #{saleCost,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProport != null" >
+        sale_proport = #{saleProport,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProject != null" >
+        sale_project = #{saleProject,jdbcType=VARCHAR},
+      </if>
+      <if test="saleAmount != null" >
+        sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ourCost != null" >
+        our_cost = #{ourCost,jdbcType=DECIMAL},
+      </if>
+      <if test="ourProport != null" >
+        our_proport = #{ourProport,jdbcType=DECIMAL},
+      </if>
+      <if test="ourProject != null" >
+        our_project = #{ourProject,jdbcType=VARCHAR},
+      </if>
+      <if test="ourAmount != null" >
+        our_amount = #{ourAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="attaId != null" >
+        atta_id = #{attaId,jdbcType=VARCHAR},
+      </if>
+      <if test="attaName != null" >
+        atta_name = #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaUrl != null" >
+        atta_url = #{attaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProject" >
+    update t_promotional_cost_project
+    set promotional_cost_no = #{promotionalCostNo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      line = #{line,jdbcType=VARCHAR},
+      amount_total = #{amountTotal,jdbcType=DECIMAL},
+      sale_cost = #{saleCost,jdbcType=DECIMAL},
+      sale_proport = #{saleProport,jdbcType=DECIMAL},
+      sale_project = #{saleProject,jdbcType=VARCHAR},
+      sale_amount = #{saleAmount,jdbcType=DECIMAL},
+      our_cost = #{ourCost,jdbcType=DECIMAL},
+      our_proport = #{ourProport,jdbcType=DECIMAL},
+      our_project = #{ourProject,jdbcType=VARCHAR},
+      our_amount = #{ourAmount,jdbcType=DECIMAL},
+      atta_id = #{attaId,jdbcType=VARCHAR},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_url = #{attaUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.market.entity.promotional.PromotionalCostProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_promotional_cost_project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.els.runhe.contract.dao.ContractMapper" >
+  <resultMap id="BaseResultMap" type="com.els.runhe.contract.entity.Contract" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NAME" property="contractName" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NUM" property="contractNum" jdbcType="VARCHAR" />
+    <result column="SIGN_DATE" property="signDate" jdbcType="DATE" />
+    <result column="START_DATE" property="startDate" jdbcType="DATE" />
+    <result column="END_DATE" property="endDate" jdbcType="DATE" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SIGN_ADDR" property="signAddr" jdbcType="VARCHAR" />
+    <result column="PARTY_A_ID" property="partyAId" jdbcType="VARCHAR" />
+    <result column="PARTY_A" property="partyA" jdbcType="VARCHAR" />
+    <result column="PARTY_B_ID" property="partyBId" jdbcType="VARCHAR" />
+    <result column="PARTY_B" property="partyB" jdbcType="VARCHAR" />
+    <result column="SALE_PROVINCE" property="saleProvince" jdbcType="VARCHAR" />
+    <result column="SALE_CITY" property="saleCity" jdbcType="VARCHAR" />
+    <result column="SALE_DISTRICT" property="saleDistrict" jdbcType="VARCHAR" />
+    <result column="SALE_PROVINCE_CODE" property="saleProvinceCode" jdbcType="VARCHAR" />
+    <result column="SALE_CITY_CODE" property="saleCityCode" jdbcType="VARCHAR" />
+    <result column="SALE_DISTRICT_CODE" property="saleDistrictCode" jdbcType="VARCHAR" />
+    <result column="SALE_CHANNEL" property="saleChannel" jdbcType="VARCHAR" />
+    <result column="YEAR_REFUND_TARGET" property="yearRefundTarget" jdbcType="DOUBLE" />
+    <result column="FIRST_PAY_AMOUNT" property="firstPayAmount" jdbcType="DOUBLE" />
+    <result column="FIRST_RECEIPT_DATE" property="firstReceiptDate" jdbcType="DATE" />
+    <result column="PER_ORDER_AMOUNT" property="perOrderAmount" jdbcType="DOUBLE" />
+    <result column="GOODS_PAYMENT" property="goodsPayment" jdbcType="VARCHAR" />
+    <result column="PAY_TYPE" property="payType" jdbcType="VARCHAR" />
+    <result column="PAYEE_ID" property="payeeId" jdbcType="VARCHAR" />
+    <result column="PAYEE_NAME" property="payeeName" jdbcType="VARCHAR" />
+    <result column="BANK_TYPE" property="bankType" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="DELIVERY_ADDRESS" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="RECEIVE_ADDRESS" property="receiveAddress" jdbcType="VARCHAR" />
+    <result column="RECEIVE_NAME" property="receiveName" jdbcType="VARCHAR" />
+    <result column="RECEIVE_PHONE" property="receivePhone" jdbcType="VARCHAR" />
+    <result column="FIRST_PENALTY" property="firstPenalty" jdbcType="INTEGER" />
+    <result column="SECOND_PENALTY" property="secondPenalty" jdbcType="INTEGER" />
+    <result column="MARKET_EXPENSE_RATE" property="marketExpenseRate" jdbcType="DOUBLE" />
+    <result column="REFUND_EXCHANGE_ADDRESS" property="refundExchangeAddress" jdbcType="VARCHAR" />
+    <result column="REFUND_EXCHANGE_NAME" property="refundExchangeName" jdbcType="VARCHAR" />
+    <result column="REFUND_EXCHANGE_PHONE" property="refundExchangePhone" jdbcType="VARCHAR" />
+    <result column="REFUND_EXCHANGE_LIMIT_RATE" property="refundExchangeLimitRate" jdbcType="DOUBLE" />
+    <result column="REFUND_EXCHANGE_EXCEED_RATE" property="refundExchangeExceedRate" jdbcType="DOUBLE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CONTRACT_NAME, CONTRACT_NUM, SIGN_DATE, START_DATE, END_DATE, STATUS, SIGN_ADDR, 
+    PARTY_A_ID, PARTY_A, PARTY_B_ID, PARTY_B, SALE_PROVINCE, SALE_CITY, SALE_DISTRICT, 
+    SALE_PROVINCE_CODE, SALE_CITY_CODE, SALE_DISTRICT_CODE, SALE_CHANNEL, YEAR_REFUND_TARGET, 
+    FIRST_PAY_AMOUNT, FIRST_RECEIPT_DATE, PER_ORDER_AMOUNT, GOODS_PAYMENT, PAY_TYPE, 
+    PAYEE_ID, PAYEE_NAME, BANK_TYPE, BANK_NAME, BANK_ACCOUNT, DELIVERY_ADDRESS, RECEIVE_ADDRESS, 
+    RECEIVE_NAME, RECEIVE_PHONE, FIRST_PENALTY, SECOND_PENALTY, MARKET_EXPENSE_RATE, 
+    REFUND_EXCHANGE_ADDRESS, REFUND_EXCHANGE_NAME, REFUND_EXCHANGE_PHONE, REFUND_EXCHANGE_LIMIT_RATE, 
+    REFUND_EXCHANGE_EXCEED_RATE, CREATE_TIME, UPDATE_TIME, IS_ENABLE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.els.runhe.contract.entity.ContractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_contract
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_contract
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.els.runhe.contract.entity.ContractExample" >
+    delete from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.els.runhe.contract.entity.Contract" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_contract (ID, CONTRACT_NAME, CONTRACT_NUM, 
+      SIGN_DATE, START_DATE, END_DATE, 
+      STATUS, SIGN_ADDR, PARTY_A_ID, 
+      PARTY_A, PARTY_B_ID, PARTY_B, 
+      SALE_PROVINCE, SALE_CITY, SALE_DISTRICT, 
+      SALE_PROVINCE_CODE, SALE_CITY_CODE, SALE_DISTRICT_CODE, 
+      SALE_CHANNEL, YEAR_REFUND_TARGET, FIRST_PAY_AMOUNT, 
+      FIRST_RECEIPT_DATE, PER_ORDER_AMOUNT, GOODS_PAYMENT, 
+      PAY_TYPE, PAYEE_ID, PAYEE_NAME, 
+      BANK_TYPE, BANK_NAME, BANK_ACCOUNT, 
+      DELIVERY_ADDRESS, RECEIVE_ADDRESS, RECEIVE_NAME, 
+      RECEIVE_PHONE, FIRST_PENALTY, SECOND_PENALTY, 
+      MARKET_EXPENSE_RATE, REFUND_EXCHANGE_ADDRESS, 
+      REFUND_EXCHANGE_NAME, REFUND_EXCHANGE_PHONE, 
+      REFUND_EXCHANGE_LIMIT_RATE, REFUND_EXCHANGE_EXCEED_RATE, 
+      CREATE_TIME, UPDATE_TIME, IS_ENABLE
+      )
+    values (#{_uuid}, #{contractName,jdbcType=VARCHAR}, #{contractNum,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=DATE}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
+      #{status,jdbcType=VARCHAR}, #{signAddr,jdbcType=VARCHAR}, #{partyAId,jdbcType=VARCHAR}, 
+      #{partyA,jdbcType=VARCHAR}, #{partyBId,jdbcType=VARCHAR}, #{partyB,jdbcType=VARCHAR}, 
+      #{saleProvince,jdbcType=VARCHAR}, #{saleCity,jdbcType=VARCHAR}, #{saleDistrict,jdbcType=VARCHAR}, 
+      #{saleProvinceCode,jdbcType=VARCHAR}, #{saleCityCode,jdbcType=VARCHAR}, #{saleDistrictCode,jdbcType=VARCHAR}, 
+      #{saleChannel,jdbcType=VARCHAR}, #{yearRefundTarget,jdbcType=DOUBLE}, #{firstPayAmount,jdbcType=DOUBLE}, 
+      #{firstReceiptDate,jdbcType=DATE}, #{perOrderAmount,jdbcType=DOUBLE}, #{goodsPayment,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{payeeId,jdbcType=VARCHAR}, #{payeeName,jdbcType=VARCHAR}, 
+      #{bankType,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, 
+      #{deliveryAddress,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, #{receiveName,jdbcType=VARCHAR}, 
+      #{receivePhone,jdbcType=VARCHAR}, #{firstPenalty,jdbcType=INTEGER}, #{secondPenalty,jdbcType=INTEGER}, 
+      #{marketExpenseRate,jdbcType=DOUBLE}, #{refundExchangeAddress,jdbcType=VARCHAR}, 
+      #{refundExchangeName,jdbcType=VARCHAR}, #{refundExchangePhone,jdbcType=VARCHAR}, 
+      #{refundExchangeLimitRate,jdbcType=DOUBLE}, #{refundExchangeExceedRate,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.els.runhe.contract.entity.Contract" >
+    <bind name="_uuid" value="@com.els.base.utils.uuid.UUIDGenerator@generateUUIDAndSetId(#this)"/>
+    insert into t_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="contractName != null" >
+        CONTRACT_NAME,
+      </if>
+      <if test="contractNum != null" >
+        CONTRACT_NUM,
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="signAddr != null" >
+        SIGN_ADDR,
+      </if>
+      <if test="partyAId != null" >
+        PARTY_A_ID,
+      </if>
+      <if test="partyA != null" >
+        PARTY_A,
+      </if>
+      <if test="partyBId != null" >
+        PARTY_B_ID,
+      </if>
+      <if test="partyB != null" >
+        PARTY_B,
+      </if>
+      <if test="saleProvince != null" >
+        SALE_PROVINCE,
+      </if>
+      <if test="saleCity != null" >
+        SALE_CITY,
+      </if>
+      <if test="saleDistrict != null" >
+        SALE_DISTRICT,
+      </if>
+      <if test="saleProvinceCode != null" >
+        SALE_PROVINCE_CODE,
+      </if>
+      <if test="saleCityCode != null" >
+        SALE_CITY_CODE,
+      </if>
+      <if test="saleDistrictCode != null" >
+        SALE_DISTRICT_CODE,
+      </if>
+      <if test="saleChannel != null" >
+        SALE_CHANNEL,
+      </if>
+      <if test="yearRefundTarget != null" >
+        YEAR_REFUND_TARGET,
+      </if>
+      <if test="firstPayAmount != null" >
+        FIRST_PAY_AMOUNT,
+      </if>
+      <if test="firstReceiptDate != null" >
+        FIRST_RECEIPT_DATE,
+      </if>
+      <if test="perOrderAmount != null" >
+        PER_ORDER_AMOUNT,
+      </if>
+      <if test="goodsPayment != null" >
+        GOODS_PAYMENT,
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE,
+      </if>
+      <if test="payeeId != null" >
+        PAYEE_ID,
+      </if>
+      <if test="payeeName != null" >
+        PAYEE_NAME,
+      </if>
+      <if test="bankType != null" >
+        BANK_TYPE,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT,
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS,
+      </if>
+      <if test="receiveAddress != null" >
+        RECEIVE_ADDRESS,
+      </if>
+      <if test="receiveName != null" >
+        RECEIVE_NAME,
+      </if>
+      <if test="receivePhone != null" >
+        RECEIVE_PHONE,
+      </if>
+      <if test="firstPenalty != null" >
+        FIRST_PENALTY,
+      </if>
+      <if test="secondPenalty != null" >
+        SECOND_PENALTY,
+      </if>
+      <if test="marketExpenseRate != null" >
+        MARKET_EXPENSE_RATE,
+      </if>
+      <if test="refundExchangeAddress != null" >
+        REFUND_EXCHANGE_ADDRESS,
+      </if>
+      <if test="refundExchangeName != null" >
+        REFUND_EXCHANGE_NAME,
+      </if>
+      <if test="refundExchangePhone != null" >
+        REFUND_EXCHANGE_PHONE,
+      </if>
+      <if test="refundExchangeLimitRate != null" >
+        REFUND_EXCHANGE_LIMIT_RATE,
+      </if>
+      <if test="refundExchangeExceedRate != null" >
+        REFUND_EXCHANGE_EXCEED_RATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{_uuid},
+      <if test="contractName != null" >
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNum != null" >
+        #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=DATE},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="signAddr != null" >
+        #{signAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partyAId != null" >
+        #{partyAId,jdbcType=VARCHAR},
+      </if>
+      <if test="partyA != null" >
+        #{partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBId != null" >
+        #{partyBId,jdbcType=VARCHAR},
+      </if>
+      <if test="partyB != null" >
+        #{partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProvince != null" >
+        #{saleProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCity != null" >
+        #{saleCity,jdbcType=VARCHAR},
+      </if>
+      <if test="saleDistrict != null" >
+        #{saleDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProvinceCode != null" >
+        #{saleProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCityCode != null" >
+        #{saleCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleDistrictCode != null" >
+        #{saleDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleChannel != null" >
+        #{saleChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="yearRefundTarget != null" >
+        #{yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="firstPayAmount != null" >
+        #{firstPayAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="firstReceiptDate != null" >
+        #{firstReceiptDate,jdbcType=DATE},
+      </if>
+      <if test="perOrderAmount != null" >
+        #{perOrderAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsPayment != null" >
+        #{goodsPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null" >
+        #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddress != null" >
+        #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveName != null" >
+        #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePhone != null" >
+        #{receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPenalty != null" >
+        #{firstPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="secondPenalty != null" >
+        #{secondPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="marketExpenseRate != null" >
+        #{marketExpenseRate,jdbcType=DOUBLE},
+      </if>
+      <if test="refundExchangeAddress != null" >
+        #{refundExchangeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangeName != null" >
+        #{refundExchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangePhone != null" >
+        #{refundExchangePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangeLimitRate != null" >
+        #{refundExchangeLimitRate,jdbcType=DOUBLE},
+      </if>
+      <if test="refundExchangeExceedRate != null" >
+        #{refundExchangeExceedRate,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.els.runhe.contract.entity.ContractExample" resultType="java.lang.Integer" >
+    select count(*) from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_contract
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractName != null" >
+        CONTRACT_NAME = #{record.contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNum != null" >
+        CONTRACT_NUM = #{record.contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        SIGN_DATE = #{record.signDate,jdbcType=DATE},
+      </if>
+      <if test="record.startDate != null" >
+        START_DATE = #{record.startDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null" >
+        END_DATE = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signAddr != null" >
+        SIGN_ADDR = #{record.signAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyAId != null" >
+        PARTY_A_ID = #{record.partyAId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyA != null" >
+        PARTY_A = #{record.partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyBId != null" >
+        PARTY_B_ID = #{record.partyBId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyB != null" >
+        PARTY_B = #{record.partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleProvince != null" >
+        SALE_PROVINCE = #{record.saleProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleCity != null" >
+        SALE_CITY = #{record.saleCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleDistrict != null" >
+        SALE_DISTRICT = #{record.saleDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleProvinceCode != null" >
+        SALE_PROVINCE_CODE = #{record.saleProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleCityCode != null" >
+        SALE_CITY_CODE = #{record.saleCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleDistrictCode != null" >
+        SALE_DISTRICT_CODE = #{record.saleDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleChannel != null" >
+        SALE_CHANNEL = #{record.saleChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearRefundTarget != null" >
+        YEAR_REFUND_TARGET = #{record.yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstPayAmount != null" >
+        FIRST_PAY_AMOUNT = #{record.firstPayAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.firstReceiptDate != null" >
+        FIRST_RECEIPT_DATE = #{record.firstReceiptDate,jdbcType=DATE},
+      </if>
+      <if test="record.perOrderAmount != null" >
+        PER_ORDER_AMOUNT = #{record.perOrderAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.goodsPayment != null" >
+        GOODS_PAYMENT = #{record.goodsPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null" >
+        PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeId != null" >
+        PAYEE_ID = #{record.payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeName != null" >
+        PAYEE_NAME = #{record.payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankType != null" >
+        BANK_TYPE = #{record.bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null" >
+        BANK_ACCOUNT = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryAddress != null" >
+        DELIVERY_ADDRESS = #{record.deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAddress != null" >
+        RECEIVE_ADDRESS = #{record.receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveName != null" >
+        RECEIVE_NAME = #{record.receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivePhone != null" >
+        RECEIVE_PHONE = #{record.receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstPenalty != null" >
+        FIRST_PENALTY = #{record.firstPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="record.secondPenalty != null" >
+        SECOND_PENALTY = #{record.secondPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="record.marketExpenseRate != null" >
+        MARKET_EXPENSE_RATE = #{record.marketExpenseRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.refundExchangeAddress != null" >
+        REFUND_EXCHANGE_ADDRESS = #{record.refundExchangeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundExchangeName != null" >
+        REFUND_EXCHANGE_NAME = #{record.refundExchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundExchangePhone != null" >
+        REFUND_EXCHANGE_PHONE = #{record.refundExchangePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundExchangeLimitRate != null" >
+        REFUND_EXCHANGE_LIMIT_RATE = #{record.refundExchangeLimitRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.refundExchangeExceedRate != null" >
+        REFUND_EXCHANGE_EXCEED_RATE = #{record.refundExchangeExceedRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        IS_ENABLE = #{record.isEnable,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_contract
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CONTRACT_NAME = #{record.contractName,jdbcType=VARCHAR},
+      CONTRACT_NUM = #{record.contractNum,jdbcType=VARCHAR},
+      SIGN_DATE = #{record.signDate,jdbcType=DATE},
+      START_DATE = #{record.startDate,jdbcType=DATE},
+      END_DATE = #{record.endDate,jdbcType=DATE},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      SIGN_ADDR = #{record.signAddr,jdbcType=VARCHAR},
+      PARTY_A_ID = #{record.partyAId,jdbcType=VARCHAR},
+      PARTY_A = #{record.partyA,jdbcType=VARCHAR},
+      PARTY_B_ID = #{record.partyBId,jdbcType=VARCHAR},
+      PARTY_B = #{record.partyB,jdbcType=VARCHAR},
+      SALE_PROVINCE = #{record.saleProvince,jdbcType=VARCHAR},
+      SALE_CITY = #{record.saleCity,jdbcType=VARCHAR},
+      SALE_DISTRICT = #{record.saleDistrict,jdbcType=VARCHAR},
+      SALE_PROVINCE_CODE = #{record.saleProvinceCode,jdbcType=VARCHAR},
+      SALE_CITY_CODE = #{record.saleCityCode,jdbcType=VARCHAR},
+      SALE_DISTRICT_CODE = #{record.saleDistrictCode,jdbcType=VARCHAR},
+      SALE_CHANNEL = #{record.saleChannel,jdbcType=VARCHAR},
+      YEAR_REFUND_TARGET = #{record.yearRefundTarget,jdbcType=DOUBLE},
+      FIRST_PAY_AMOUNT = #{record.firstPayAmount,jdbcType=DOUBLE},
+      FIRST_RECEIPT_DATE = #{record.firstReceiptDate,jdbcType=DATE},
+      PER_ORDER_AMOUNT = #{record.perOrderAmount,jdbcType=DOUBLE},
+      GOODS_PAYMENT = #{record.goodsPayment,jdbcType=VARCHAR},
+      PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      PAYEE_ID = #{record.payeeId,jdbcType=VARCHAR},
+      PAYEE_NAME = #{record.payeeName,jdbcType=VARCHAR},
+      BANK_TYPE = #{record.bankType,jdbcType=VARCHAR},
+      BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      BANK_ACCOUNT = #{record.bankAccount,jdbcType=VARCHAR},
+      DELIVERY_ADDRESS = #{record.deliveryAddress,jdbcType=VARCHAR},
+      RECEIVE_ADDRESS = #{record.receiveAddress,jdbcType=VARCHAR},
+      RECEIVE_NAME = #{record.receiveName,jdbcType=VARCHAR},
+      RECEIVE_PHONE = #{record.receivePhone,jdbcType=VARCHAR},
+      FIRST_PENALTY = #{record.firstPenalty,jdbcType=INTEGER},
+      SECOND_PENALTY = #{record.secondPenalty,jdbcType=INTEGER},
+      MARKET_EXPENSE_RATE = #{record.marketExpenseRate,jdbcType=DOUBLE},
+      REFUND_EXCHANGE_ADDRESS = #{record.refundExchangeAddress,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_NAME = #{record.refundExchangeName,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_PHONE = #{record.refundExchangePhone,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_LIMIT_RATE = #{record.refundExchangeLimitRate,jdbcType=DOUBLE},
+      REFUND_EXCHANGE_EXCEED_RATE = #{record.refundExchangeExceedRate,jdbcType=DOUBLE},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{record.isEnable,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.els.runhe.contract.entity.Contract" >
+    update t_contract
+    <set >
+      <if test="contractName != null" >
+        CONTRACT_NAME = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNum != null" >
+        CONTRACT_NUM = #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        SIGN_DATE = #{signDate,jdbcType=DATE},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="signAddr != null" >
+        SIGN_ADDR = #{signAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="partyAId != null" >
+        PARTY_A_ID = #{partyAId,jdbcType=VARCHAR},
+      </if>
+      <if test="partyA != null" >
+        PARTY_A = #{partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBId != null" >
+        PARTY_B_ID = #{partyBId,jdbcType=VARCHAR},
+      </if>
+      <if test="partyB != null" >
+        PARTY_B = #{partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProvince != null" >
+        SALE_PROVINCE = #{saleProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCity != null" >
+        SALE_CITY = #{saleCity,jdbcType=VARCHAR},
+      </if>
+      <if test="saleDistrict != null" >
+        SALE_DISTRICT = #{saleDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="saleProvinceCode != null" >
+        SALE_PROVINCE_CODE = #{saleProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleCityCode != null" >
+        SALE_CITY_CODE = #{saleCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleDistrictCode != null" >
+        SALE_DISTRICT_CODE = #{saleDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="saleChannel != null" >
+        SALE_CHANNEL = #{saleChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="yearRefundTarget != null" >
+        YEAR_REFUND_TARGET = #{yearRefundTarget,jdbcType=DOUBLE},
+      </if>
+      <if test="firstPayAmount != null" >
+        FIRST_PAY_AMOUNT = #{firstPayAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="firstReceiptDate != null" >
+        FIRST_RECEIPT_DATE = #{firstReceiptDate,jdbcType=DATE},
+      </if>
+      <if test="perOrderAmount != null" >
+        PER_ORDER_AMOUNT = #{perOrderAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsPayment != null" >
+        GOODS_PAYMENT = #{goodsPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null" >
+        PAYEE_ID = #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        PAYEE_NAME = #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        BANK_TYPE = #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAddress != null" >
+        DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        RECEIVE_ADDRESS = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveName != null" >
+        RECEIVE_NAME = #{receiveName,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePhone != null" >
+        RECEIVE_PHONE = #{receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPenalty != null" >
+        FIRST_PENALTY = #{firstPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="secondPenalty != null" >
+        SECOND_PENALTY = #{secondPenalty,jdbcType=INTEGER},
+      </if>
+      <if test="marketExpenseRate != null" >
+        MARKET_EXPENSE_RATE = #{marketExpenseRate,jdbcType=DOUBLE},
+      </if>
+      <if test="refundExchangeAddress != null" >
+        REFUND_EXCHANGE_ADDRESS = #{refundExchangeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangeName != null" >
+        REFUND_EXCHANGE_NAME = #{refundExchangeName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangePhone != null" >
+        REFUND_EXCHANGE_PHONE = #{refundExchangePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExchangeLimitRate != null" >
+        REFUND_EXCHANGE_LIMIT_RATE = #{refundExchangeLimitRate,jdbcType=DOUBLE},
+      </if>
+      <if test="refundExchangeExceedRate != null" >
+        REFUND_EXCHANGE_EXCEED_RATE = #{refundExchangeExceedRate,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE = #{isEnable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.els.runhe.contract.entity.Contract" >
+    update t_contract
+    set CONTRACT_NAME = #{contractName,jdbcType=VARCHAR},
+      CONTRACT_NUM = #{contractNum,jdbcType=VARCHAR},
+      SIGN_DATE = #{signDate,jdbcType=DATE},
+      START_DATE = #{startDate,jdbcType=DATE},
+      END_DATE = #{endDate,jdbcType=DATE},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SIGN_ADDR = #{signAddr,jdbcType=VARCHAR},
+      PARTY_A_ID = #{partyAId,jdbcType=VARCHAR},
+      PARTY_A = #{partyA,jdbcType=VARCHAR},
+      PARTY_B_ID = #{partyBId,jdbcType=VARCHAR},
+      PARTY_B = #{partyB,jdbcType=VARCHAR},
+      SALE_PROVINCE = #{saleProvince,jdbcType=VARCHAR},
+      SALE_CITY = #{saleCity,jdbcType=VARCHAR},
+      SALE_DISTRICT = #{saleDistrict,jdbcType=VARCHAR},
+      SALE_PROVINCE_CODE = #{saleProvinceCode,jdbcType=VARCHAR},
+      SALE_CITY_CODE = #{saleCityCode,jdbcType=VARCHAR},
+      SALE_DISTRICT_CODE = #{saleDistrictCode,jdbcType=VARCHAR},
+      SALE_CHANNEL = #{saleChannel,jdbcType=VARCHAR},
+      YEAR_REFUND_TARGET = #{yearRefundTarget,jdbcType=DOUBLE},
+      FIRST_PAY_AMOUNT = #{firstPayAmount,jdbcType=DOUBLE},
+      FIRST_RECEIPT_DATE = #{firstReceiptDate,jdbcType=DATE},
+      PER_ORDER_AMOUNT = #{perOrderAmount,jdbcType=DOUBLE},
+      GOODS_PAYMENT = #{goodsPayment,jdbcType=VARCHAR},
+      PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      PAYEE_ID = #{payeeId,jdbcType=VARCHAR},
+      PAYEE_NAME = #{payeeName,jdbcType=VARCHAR},
+      BANK_TYPE = #{bankType,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+      DELIVERY_ADDRESS = #{deliveryAddress,jdbcType=VARCHAR},
+      RECEIVE_ADDRESS = #{receiveAddress,jdbcType=VARCHAR},
+      RECEIVE_NAME = #{receiveName,jdbcType=VARCHAR},
+      RECEIVE_PHONE = #{receivePhone,jdbcType=VARCHAR},
+      FIRST_PENALTY = #{firstPenalty,jdbcType=INTEGER},
+      SECOND_PENALTY = #{secondPenalty,jdbcType=INTEGER},
+      MARKET_EXPENSE_RATE = #{marketExpenseRate,jdbcType=DOUBLE},
+      REFUND_EXCHANGE_ADDRESS = #{refundExchangeAddress,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_NAME = #{refundExchangeName,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_PHONE = #{refundExchangePhone,jdbcType=VARCHAR},
+      REFUND_EXCHANGE_LIMIT_RATE = #{refundExchangeLimitRate,jdbcType=DOUBLE},
+      REFUND_EXCHANGE_EXCEED_RATE = #{refundExchangeExceedRate,jdbcType=DOUBLE},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      IS_ENABLE = #{isEnable,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.els.runhe.contract.entity.ContractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
